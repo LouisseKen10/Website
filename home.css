@@ -1,0 +1,703 @@
+/* =========================
+   Base
+========================= */
+:root{
+  --ink: #434343;                 /* dark grey */
+  --text: #1c1b1a;
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.25);
+
+  /* Footer theme */
+  --footer-ink:#A1A1A1;
+  --footer-accent:#E3721A;
+}
+
+*{ box-sizing:border-box; }
+html, body{ height:100%; margin:0; overflow-x:hidden; }
+body{
+  font-family:"Gantari",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:#FBE5CF;
+}
+
+/* =========================
+   Header (transparent at top)
+========================= */
+.site-header{
+  position:sticky; top:0; z-index:20;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px;
+  height:64px;
+  background:transparent; border-bottom:none; box-shadow:none; backdrop-filter:none;
+  padding-left:clamp(12px, 2vw, 20px);
+  padding-right:clamp(12px, 2vw, 20px);
+  transition: background .3s ease, box-shadow .3s ease, backdrop-filter .3s ease;
+}
+
+/* Brand */
+.brand{
+  display:inline-flex; align-items:center; gap:1px;
+  color:var(--ink); text-decoration:none;
+}
+.brand__img{
+  width:60px; height:60px; display:block;
+  filter: invert(26%) sepia(2%) saturate(0%) hue-rotate(167deg) brightness(95%) contrast(90%);
+}
+.brand__text{ font-weight:700; letter-spacing:.150em; color:var(--ink); }
+
+/* Nav */
+.site-nav{ display:flex; justify-content:center; gap:32px; }
+.nav-link{
+  color:var(--ink); text-decoration:none;
+  font-weight:400; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  padding-bottom:8px; position:relative;
+  transition: color .2s ease, font-weight .15s ease, opacity .2s ease;
+}
+.nav-link:hover{ font-weight:600; }
+.nav-link.is-active{ font-weight:800; }
+.nav-link.is-active::after{
+  content:""; position:absolute; left:50%; bottom:0;
+  width:40px; height:2px; transform:translateX(-50%);
+  background:var(--ink);
+}
+
+/* Logout */
+.logout-btn{
+  display:inline-block; text-decoration:none;
+  background:#e3721a; color:#fff;
+  padding:10px 14px; border-radius:0;
+  font-weight:500; font-size:12px; letter-spacing:.12em;
+  box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+
+/* Header tint on micro-scroll (CSS-only) */
+@supports (animation-timeline: scroll()) {
+  @keyframes headerFade {
+    from { background:transparent; box-shadow:none; backdrop-filter:none; }
+    to   { background:#FBE5CF; backdrop-filter:blur(12px); box-shadow:var(--shadow-lg); }
+  }
+  .site-header{
+    animation: headerFade linear;
+    animation-timeline: scroll();
+    animation-fill-mode: both;
+    animation-range: 1px 80px;
+  }
+}
+
+/* =========================
+   Full-page artwork
+========================= */
+.page{
+  position:relative;
+  min-height:100vh;
+  overflow:hidden;
+}
+.page-bg{
+  width:100%; height:auto; display:block;
+  user-select:none; -webkit-user-drag:none;
+}
+
+/* =========================
+   Hero block (“Welcome to OhSnap!”)
+========================= */
+.hero-callout{
+  position:absolute;
+  left:clamp(20px, 9vw, 65px);
+  top:72px;
+  max-width:470px;
+  z-index:5;
+  color:var(--ink);
+}
+.hero-title{
+  margin:0 0 10px 0;
+  line-height:1.02;
+  font-weight:900;
+  letter-spacing:.005em;
+  font-size:clamp(45px, 6.8vw, 85px);
+  color:var(--ink);
+}
+.hero-title__lead{ color:var(--ink); }
+.hero-title__color{ color:#E26900; }
+.hero-sub{
+  margin:8px 0 0 0;
+  font-weight:400;
+  font-size:clamp(17px, 2.1vw, 20px);
+  line-height:1.5;
+  color:var(--ink);
+  max-width:380px;
+}
+@media (min-width:1400px){
+  .hero-callout{ left:clamp(80px, 12vw, 10px); top:84px; }
+}
+
+/* Invisible anchor targets for nav jumps */
+.anchor{ position:absolute; width:0; height:0; overflow:hidden; pointer-events:none; }
+#about{ top:640px; left:0; }
+#learn{ top:1160px; left:0; }
+#gallery{ top:1700px; left:0; }
+#contact{ top:2500px; left:0; }
+
+/* =========================
+   “What is OhSnap?” overlay
+========================= */
+.page{ position:relative; }
+.what-overlay{
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  top:clamp(520px, 56vw, 780px);
+  width:min(900px, 92vw);
+  z-index:3;
+  text-align:center;
+  color:#ffffff;
+  padding:clamp(18px, 3vw, 28px) clamp(12px, 2.5vw, 20px);
+}
+.what-title{
+  color:#C8C8C8;
+  text-align:left;
+  display:block;
+  margin:0 0 16px 0;
+  font-weight:800;
+  font-size:clamp(28px, 3.6vw, 40px);
+  letter-spacing:.02em;
+  padding-left:115px;
+  text-indent:6px;
+}
+.what-copy{
+  color:#C8C8C8;
+  margin:0 auto;
+  letter-spacing:.01em;
+  max-width:820px;
+  font-size:25px;
+  font-weight:300;
+  line-height:1.7;
+}
+@media (max-width:680px){
+  .what-overlay{
+    top:clamp(480px, 62vw, 740px);
+    width:94vw;
+  }
+}
+
+/* =========================
+   Features
+========================= */
+.features{
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  top:clamp(980px, 104vw, 1380px);
+  width:min(1100px, 92vw);
+  z-index:4;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:clamp(16px, 2.6vw, 32px);
+  color:var(--ink);
+}
+.feature{ text-align:center; color:var(--ink); padding:clamp(14px, 2.2vw, 22px); }
+.feature__icon{
+  width: clamp(90px, 7vw, 110px);
+  height: clamp(90px, 7vw, 110px);
+  margin: 0 auto 18px;
+  display:block;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:contain !important;
+  border-radius:0; box-shadow:none;
+  filter: invert(26%) sepia(2%) saturate(0%) hue-rotate(167deg) brightness(95%) contrast(90%);
+}
+.feature__title{
+  font-weight:730; text-transform:uppercase; line-height:1.2;
+  margin:4px 0 10px; font-size:clamp(30px, 1.6vw, 18px);
+}
+.feature__text{
+  margin:0 auto 12px; max-width:320px;
+  font-size:clamp(17px, 1.2vw, 14px); line-height:1.55; color:var(--ink);
+}
+.feature__cta{
+  width:44px; height:44px; margin:10px auto 0; border-radius:999px;
+  background:var(--ink); color:#989898; display:grid; place-items:center;
+  font-weight:700; font-size:16px; text-decoration:none;
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  transition:transform .15s ease, box-shadow .15s ease;
+  border:none; cursor:pointer;
+}
+.feature__cta img{ width:14px; height:14px; display:block; pointer-events:none; filter: invert(100%) brightness(0.96) sepia(10%); }
+.feature__cta:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.28); }
+
+@media (max-width:820px){
+  .features{ grid-template-columns:1fr; width:min(600px, 92vw); gap:22px; }
+}
+
+/* Feature images */
+.features .feature:nth-child(1) .feature__icon{ background:url("images/ourstory.png") center/cover no-repeat; width:60px; height:60px; }
+.features .feature:nth-child(2) .feature__icon{ background:url("images/learnhere.png") center/cover no-repeat; width:65px; height:65px; }
+.features .feature:nth-child(3) .feature__icon{ background:url("images/boldcaptures.png") center/cover no-repeat; width:52px; height:52px; margin:0 auto 32px; }
+
+/* =========================
+   Upcoming Sessions
+========================= */
+.sessions-lite{
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  top: clamp(2000px, 120vw, 1650px);
+  width:min(1100px, 92vw);
+  z-index:4;
+  color:#434343;
+}
+.sessions-lite__rule{ height:1px; background:rgba(0,0,0,.18); margin: clamp(12px, 1.6vw, 16px) 0 clamp(14px, 1.8vw, 20px); position:relative; top: clamp(-200px, -1.6vw, -145px); }
+.sessions-lite__title{ position:relative; top:-60px; margin:0 0 clamp(18px, 2.2vw, 28px); text-align:center; font-weight:800; text-transform:uppercase; font-size:clamp(30px, 2.2vw, 22px); }
+.sessions-lite__grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(20px, 3vw, 36px); align-items:start; }
+.scol{ display:grid; grid-template-columns:auto 1fr; column-gap:clamp(10px, 1.6vw, 16px); align-items:start; }
+.scol__date{ line-height:1; min-width:70px; text-align:left; }
+.scol__day{ display:block; font-weight:800; font-size:clamp(32px, 6vw, 54px); }
+.scol__month{ display:block; margin-top:2px; font-weight:800; font-size:clamp(32px, 6vw, 54px); opacity:.9; }
+.scol__copy{ margin:0; font-size:clamp(12px, 1.2vw, 14px); line-height:1.55; color:#434343; opacity:.92; }
+
+@media (max-width:820px){
+  .sessions-lite__grid{ grid-template-columns:1fr; row-gap:18px; }
+  .scol__date{ min-width:60px; }
+}
+
+/* =========================================================
+   FOOTER — final (matches the reference)
+========================================================= */
+
+.footer-band{
+  background:#1B0D09;
+  position:relative;
+  padding:36px 0 24px;
+  padding-bottom: 5px;
+}
+
+/* container */
+.site-footer{ position:relative; background:transparent; color:var(--footer-ink); }
+
+/* layout */
+/* Replace the existing .footer-inner block */
+.footer-inner{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 1.05fr 0.9fr 1.05fr 1.25fr;
+  column-gap:clamp(22px, 5vw, 64px);
+  align-items:start;
+  line-height:1.55;
+  /* FIX: Use consistent side padding on the inner container */
+  padding-left: clamp(20px, 4vw, 40px);
+  padding-right: clamp(20px, 4vw, 40px);
+}
+
+/* reset letter spacing globally inside footer; only wordmark retains tracking */
+.footer-inner, .footer-inner *{ letter-spacing:0; }
+.footer-wordmark{ letter-spacing:.14em; }
+
+/* headings */
+.footer-h{
+  margin:0 0 8px;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.05;
+  color:#E6E0DC;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+/* brand block: mark left, stacked wordmark+tagline on right, vertically centered */
+.brandlockup{
+  display:flex;
+  align-items:center;       /* vertical center of mark + text */
+  gap:10px;                 /* tight gap, matches reference */
+  margin-bottom:6px;
+}
+
+/* circular mark */
+.footer-mark{
+  width:60px; height:60px; object-fit:contain; display:block;
+  flex:0 0 60px;
+  margin:0;
+}
+
+/* grouped text for precise control */
+.footer-brand-text{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* wordmark */
+.footer-wordmark{
+  font-weight:700;
+  font-size:40px;
+  color:#E6E0DC;
+  display:block;
+  line-height:1;
+  margin:0;
+}
+
+/* tagline: smaller, light, constrained width so it wraps nicely */
+.footer-tagline{
+  margin:6px 0 0;
+  font-size:13px;
+  color:var(--footer-ink);
+  font-weight:300;
+  line-height:1.28;
+  max-width:210px;  /* tuned to closely match reference width */
+}
+
+/* Quick links */
+.footer-list{ list-style:none; margin:0; padding:0; }
+.footer-list li+li{ margin-top:8px; }
+.footer-list a{ color:var(--footer-ink); text-decoration:none; font-size:14px; display:inline-block; }
+.footer-list a:hover{ opacity:.85; }
+
+/* Explore */
+.footer-explore .footer-note{
+  margin:0 0 8px;
+  white-space:nowrap;
+  color:var(--footer-ink);
+  font-size:14px;
+}
+
+/* CONNECT block: ensure header and paragraph match visually by constraining both
+   to the same max-width (keeps the paragraph from exceeding the header width). */
+.footer-connect{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note {
+  max-width:210px;   /* match .footer-tagline width for unified visual rhythm */
+}
+
+/* connect note */
+.footer-connect-note{
+  margin:6px 0 12px;
+  color:var(--footer-ink);
+  font-size:14px;
+  line-height:1.35;
+  white-space:normal;
+  word-wrap:break-word;
+}
+
+/* social icons */
+.footer-social {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 100px !important; /* <- change this value to whatever spacing you want */
+  margin: 6px 0 10px !important;
+}
+
+.footer-social .soc {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain !important;   /* crop/expose actual icon area consistently */
+  vertical-align: middle !important;
+  margin: 0 !important;             /* ensure gap controls spacing, not icon margins */
+}
+
+/* search */
+.footer-search{ display:flex; align-items:center; gap:8px; }
+.footer-search input{
+  width:170px; height:28px;
+  padding:0 10px; border:0; outline:0;
+  background:#fff; color:#1c1b1a; font-size:13px;
+  border-radius:2px;
+
+}
+.footer-search button{
+  height:28px; padding:0 12px; border:0; cursor:pointer;
+  background:var(--footer-accent); color:#fff; font-size:12px; font-weight:400;
+  border-radius:2px;
+    font-weight: 400;
+}
+
+/* More button */
+.footer-more{
+  display:inline-block; padding:8px 16px; font-size:13px; font-weight:700;
+  text-decoration:none; background:var(--footer-accent); color:#fff;
+  border-radius:2px;
+}
+
+/* subtle dividing rule */
+.footer-rule{
+  width:min(1100px,92vw);
+  margin:22px auto 0;
+  height:1px; border:0; background:rgba(255,255,255,.12);
+}
+
+/* copyright centered horizontally and vertically (flex) with consistent padding */
+.footer-copy{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  text-align:center;
+  font-size:11px;
+  color:var(--footer-ink);
+  padding:14px 12px 28px;
+  font-weight:300;
+  opacity:0.55;
+  display:flex;
+  align-items:center;       /* vertical centering inside the padded area */
+  justify-content:center;
+  line-height:1.45;
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .footer-inner{ grid-template-columns:1fr 1fr; row-gap:28px; }
+  .footer-copy{ padding-bottom:22px; }
+}
+@media (max-width:560px){
+  .footer-inner{ grid-template-columns:1fr; }
+  .footer-wordmark{ font-size:40px; }
+  .footer-mark{ width:48px; height:48px; flex:0 0 48px; }
+  .footer-tagline{ max-width:180px; font-size:13px; }
+  .footer-connect .footer-h,
+  .footer-connect .footer-connect-note { max-width:100%; }
+}
+
+/* =========================
+   Final footer fixes — paste AT THE VERY END of your CSS
+   (only these rules; they override previous footer rules)
+   ========================= */
+
+/* Make sure brand layout forces logo to the LEFT of the wordmark
+   and that the tagline stacks under the wordmark, not beside the mark. */
+
+.brandlockup {
+  display: flex !important;
+  align-items: flex-start !important;   /* top-align so tagline stacks under wordmark */
+  gap: 10px !important;
+  margin: 0 0 6px 0 !important;
+}
+
+/* size and micro-nudge for precise visual pairing */
+.footer-mark {
+  width: 46px !important;
+  height: 46px !important;
+  flex: 0 0 46px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  transform: translateY(4px) !important; /* positive moves mark down; tweak this if needed */
+  will-change: transform;
+}
+
+/* stacked text to the right of the mark */
+.footer-brand-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+/* wordmark sits inline next to the mark */
+.footer-wordmark {
+  display: inline-block !important;
+  margin: 6px 0 0 0 !important;  /* small top offset so the word aligns with the mark */
+  padding: 0 !important;
+  font-size: 33px !important;
+  font-weight: 700 !important;
+  letter-spacing: .14em !important;
+  line-height: 1 !important;
+  color: #E6E0DC !important;
+}
+
+/* tagline should be under the wordmark only */
+.footer-tagline {
+  margin: 6px 0 0 0 !important;
+  font-size: 14.2px !important;
+  line-height: 1.28 !important;
+  max-width: 220px !important;
+  color: var(--footer-ink) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.1em;
+}
+
+/* Align search and connect widths to match visual reference */
+.footer-explore .footer-note{
+  max-width:220px !important;
+  white-space:normal !important;
+}
+.footer-search input{ width:150px !important; }
+
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note,
+.footer-connect .footer-social { max-width: 190px !important; }
+
+/* compact social icon size */
+.footer-social{ gap:20px !important; margin:6px 0 10px !important; }
+.soc{ width:25px !important; height:25px !important; object-fit:contain !important; }
+
+/* Copyright wrap & centering */
+.footer-rule{
+ /* 1. Set a percentage width to make it shorter than the full container */
+   width: 75%; /* You can adjust this value (e.g., 60%, 40%) */
+ /* 2. Center the block horizontally */
+  margin: 18px auto 0; /* 'auto' centers it */ 
+   height:1px;
+  border:0;
+  background:rgba(255,255,255,.12);
+}
+.footer-copy{
+  width: min(900px, 92vw) !important;
+  max-width: 740px !important;
+  margin: 0 auto !important;
+  padding: 8px 12px 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  font-size: 11px !important;
+  color: var(--footer-ink) !important;
+  line-height: 1.45 !important;
+  opacity: 0.55 !important;
+  font-weight: 300 !important;
+  white-space: normal !important;
+  min-height: 46px !important;
+}
+
+/* responsive tweaks */
+@media (max-width:900px){
+  .footer-inner{ grid-template-columns:1fr 1fr !important; row-gap:28px !important; }
+  .footer-copy{ padding-bottom:22px !important; max-width:86vw !important; }
+}
+@media (max-width:560px){
+  .brandlockup{ gap:10px !important; }
+  .footer-mark{ width:48px; height:48px; transform: translateY(2px) !important; }
+  .footer-wordmark{ font-size:20px; margin-top:6px; }
+  .footer-tagline{ max-width:100%; font-size:13px; }
+  .footer-connect .footer-h,
+  .footer-connect .footer-connect-note,
+  .footer-connect .footer-social { max-width:100% !important; }
+  .footer-search input{ width:170px !important; }
+  .footer-copy{ max-width:92vw !important; padding-bottom:16px !important; min-height:auto !important; }
+}
+.footer-copy {
+  margin-top: 5px !important;
+}
+
+/* ensure brand block is predictable */
+.brandlockup { position: relative; display:flex; align-items:flex-start; gap:12px; }
+
+/* move the circular mark independently */
+.footer-mark {
+  position: relative;               /* keep it in flow but allow offsets via transform */
+  transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y));
+  will-change: transform;
+  /* keep sizing consistent with your CSS — override sizes below if you changed them earlier */
+  width: 46px;
+  height: 46px;
+}
+
+/* move the wordmark independently (the text "OhSnap") */
+.footer-wordmark {
+  position: relative;
+  transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y));
+  display: inline-block; /* so transform works predictably */
+}
+
+/* move the tagline separately if you like */
+.footer-tagline {
+  position: relative;
+  transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y));
+  display: block;
+}
+/* === Forceable independent nudge controls for footer mark/word/tagline ===
+   Paste this at THE VERY END of home.css so it wins over older rules. */
+
+:root{
+  --footer-mark-nudge-x: -10px;   /* positive -> right, negative -> left */
+  --footer-mark-nudge-y: -5px;   /* positive -> down, negative -> up */
+
+  --footer-word-nudge-x: -13px;
+  --footer-word-nudge-y: 0px;
+
+  --footer-tagline-nudge-x: 0px;
+  --footer-tagline-nudge-y: 0px;
+}
+
+/* Highly specific selectors and !important to override previous rules */
+.footer-band .footer-inner .footer-brand .brandlockup .footer-mark,
+.footer-band .footer-inner .brandlockup .footer-mark {
+  position: relative !important;
+  transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y)) !important;
+  will-change: transform !important;
+  /* keep size specified so nothing jumps */
+  width: 46px !important;
+  height: 46px !important;
+}
+
+/* wordmark (text) */
+.footer-band .footer-inner .footer-brand .footer-wordmark,
+.footer-band .footer-inner .brandlockup .footer-wordmark {
+  position: relative !important;
+  transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y)) !important;
+  display: inline-block !important;
+}
+
+/* tagline */
+.footer-band .footer-inner .footer-brand .footer-tagline,
+.footer-band .footer-inner .footer-tagline {
+  position: relative !important;
+  transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y)) !important;
+  display: block !important;
+}
+/* Turn all footer text gray, except OhSnap wordmark + logo */
+.site-footer {
+  color: #A1A1A1;
+}
+
+.site-footer * {
+  color: #A1A1A1;
+}
+
+/* Keep the OhSnap brand text and logo in their original colors */
+.footer-wordmark,
+.footer-mark {
+  color: #fff !important;
+  filter: none !important;
+}
+
+/* Optional: If your logo image is being affected by color filters elsewhere */
+.footer-mark {
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* Make sure headings and links also use gray */
+.footer-h,
+.footer-list a,
+.footer-note,
+.footer-connect-note,
+.footer-copy,
+.footer-tagline {
+  color: #A1A1A1 !important;
+}
+/* Restore orange "More" button (do NOT make it #A1A1A1) */
+/* Put this at the VERY END of home.css so it overrides earlier footer color rules */
+.footer-more {
+  background: var(--footer-accent) !important; /* orange bg */
+  color: #fff !important;                      /* white label (keeps good contrast) */
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18) !important;
+  padding: 8px 16px !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  border-radius: 4px !important;
+}
+
+/* Ensure any nested elements inside the button also stay white */
+.footer-more, .footer-more * {
+  color: #fff !important;
+}
+
+/* If your global rule uses `!important` on .site-footer * color, add a stronger selector */
+.footer-band .site-footer .footer-more,
+.footer-band .site-footer .footer-more * {
+  color: #fff !important;
+  background: var(--footer-accent) !important;
+}

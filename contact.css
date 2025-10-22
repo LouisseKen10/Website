@@ -1,0 +1,2070 @@
+/* learn.css */
+
+/* =========================
+    Base & Global Setup
+========================= */
+:root {
+    --ink: #434343;
+    --text: #1c1b1a;
+    --shadow-lg: 0 10px 30px rgba(0,0,0,.25);
+    --bg-url: url('images/contact2.jpg'); 
+    /* --- FIXED IMAGE DIMENSIONS --- */
+    --image-original-width: 5759; 
+    --image-original-height: 23705;
+    /* ------------------------------ */
+    --footer-ink:#434343;
+    --footer-accent:#E3721A;
+    --footer-mark-nudge-x: -10px; 
+    --footer-mark-nudge-y: -5px; 
+    --footer-word-nudge-x: -13px;
+    --footer-word-nudge-y: 0px;
+    --footer-tagline-nudge-x: 0px;
+    --footer-tagline-nudge-y: 0px;
+    --nav-nudge-x: 13.5px;
+    --nav-nudge-y: 0px;
+    --logout-nudge-x: -16px;
+    --logout-nudge-y: -20px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+}
+
+html,
+body {
+    height: 100%;
+    font-family: "Gantari", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: #FBE5CF; 
+    margin: 0;
+    padding: 0; 
+    overflow-x: hidden;
+}
+
+/* =========================================================
+    HEADER WRAPPER (FIXED and Animated via JS)
+========================================================= */
+
+.header-wrapper {
+    position: relative; 
+    top: 0; 
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 64px;
+    background: transparent;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    backdrop-filter: none;
+    /* Removed all scroll-animation properties */
+    will-change: box-shadow;
+    /* Add transition for smooth JS-driven animation */
+    transition: box-shadow 0.3s ease; 
+}
+
+/* Background/blur layer */
+.header-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(251,229,207,.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    /* Add transition for smooth JS-driven animation */
+    transition: opacity 0.3s ease; 
+}
+
+/* --- NEW CLASS: APPLIED BY JAVASCRIPT ON SCROLL --- */
+.header-wrapper.is-scrolled {
+    box-shadow: var(--shadow-lg);
+}
+
+.header-wrapper.is-scrolled::before {
+    opacity: 1;
+}
+/* ---------------------------------------------------- */
+/* header wrapper base + overlay */
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: 64px;
+  background: transparent;
+  transition: box-shadow .3s ease, background-color .3s ease;
+  will-change: box-shadow, background-color;
+}
+
+/* the overlay / blur layer that fades in */
+.header-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(251,229,207, .92); /* final background color when scrolled */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  opacity: 0;                       /* start hidden */
+  pointer-events: none;
+  transition: opacity .28s ease, transform .28s ease, box-shadow .28s ease;
+  transform: translateZ(0);
+}
+
+/* visible scrolled state (JS fallback) */
+.header-wrapper.is-scrolled {
+  box-shadow: var(--shadow-lg);
+}
+.header-wrapper.is-scrolled::before {
+  opacity: 1;                       /* make overlay visible when scrolled */
+}
+
+/* small accessibility tweak — when user prefers reduced motion, don't animate */
+@media (prefers-reduced-motion: reduce) {
+  .header-wrapper::before,
+  .header-wrapper {
+    transition: none;
+  }
+}
+
+
+/* =========================================================
+    INNER HEADER & NAVIGATION
+========================================================= */
+
+.site-header {
+    position: relative; 
+    display: grid; 
+    grid-template-columns: auto 1fr auto; 
+    align-items: center; 
+    gap: 18px;
+    height: 100px;
+    padding-left: clamp(12px, 2vw, 20px);
+    padding-right: clamp(12px, 2vw, 20px);
+    background: linear-gradient(to bottom, rgba(27,13,9,1) 45%, rgb(27, 13, 9) 60%, rgba(27,13,9,0) 100%) ;
+
+
+}
+
+.site-nav { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 32px;
+    transform: translate(var(--nav-nudge-x), var(--nav-nudge-y));
+    backdrop-filter: none; 
+    color: #FBE5CF;
+}
+
+/* Brand Styles */
+.brand{
+    display:inline-flex; align-items:center; gap:1px;
+    color:var(--ink); text-decoration:none;
+}
+.brand__img{
+    width:60px; height:60px; display:block;
+    filter: invert(99%) sepia(8%) saturate(200%) hue-rotate(8deg) brightness(101%) contrast(100%);
+}
+.brand__text{ font-weight:700; letter-spacing:.150em; color: #FBE5CF ; }
+
+/* Nav link appearance */
+.nav-link{
+    color:#FEF7EE; text-decoration:none;
+    font-weight:400; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    padding-bottom:8px; position:relative;
+    transition: color .2s ease, font-weight .15s ease;
+}
+.nav-link:hover{ font-weight:600; }
+.nav-link.is-active{ font-weight:800; }
+.nav-link.is-active::after{
+    content:""; position:absolute; left:50%; bottom:0;
+    width:40px; height:2px; transform:translateX(-50%);
+    background:#FEF7EE;
+}
+
+/* Logout Button */
+.logout-btn{
+    display:inline-block; text-decoration:none;
+    background:#e3721a; color:#fff;
+    padding:10px 14px; border-radius:0;
+    font-weight:bolder; font-size:12px; letter-spacing:.12em;
+    box-shadow:0 10px 24px rgba(0,0,0,.18);
+    grid-column: 3 / 4; 
+    transform: translate(var(--logout-nudge-x), var(--logout-nudge-y));
+}
+
+/* =========================================================
+    The Long Background Element (.bg-long) 
+========================================================= */
+
+.bg-long {
+    width: 100%;
+    min-height: calc(100vw * (var(--image-original-height) / var(--image-original-width)));
+    margin: 0; 
+    padding: 0;
+    background-image: var(--bg-url);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100%; 
+    background-attachment: scroll; 
+    display: block;
+}
+
+/* =========================================================
+    FOOTER (NO CHANGES)
+========================================================= */
+
+.footer-band{
+    background:#FBE5CF;
+    color: #434343;
+    position:relative;
+    padding:36px 0 24px;
+    padding-bottom: 5px;
+    margin-top: -2px; 
+}
+
+.site-footer{ position:relative; background:transparent; color:var(--footer-ink); }
+
+.footer-inner{
+    width:min(1100px,92vw);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 1.05fr 0.9fr 1.05fr 1.25fr;
+    column-gap:clamp(22px, 5vw, 64px);
+    align-items:start;
+    line-height:1.55;
+    padding-left: clamp(20px, 4vw, 40px);
+    padding-right: clamp(20px, 4vw, 40px);
+}
+
+.footer-inner, .footer-inner *{ letter-spacing:0; }
+.footer-wordmark{ letter-spacing:.14em; }
+
+.footer-h{
+    margin:0 0 8px;
+    font-weight:700;
+    font-size:18px;
+    line-height:1.05;
+    color:#E6E0DC;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+}
+
+.brandlockup{
+    display:flex;
+    align-items:center; 
+    gap:10px; 
+    margin-bottom:6px;
+}
+
+.footer-mark{
+    width:60px; height:60px; object-fit:contain; display:block;
+    flex:0 0 60px;
+    margin:0;
+}
+
+.footer-brand-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.footer-wordmark{
+    font-weight:700;
+    font-size:40px;
+    color:#E6E0DC;
+    display:block;
+    line-height:1;
+    margin:0;
+}
+
+.footer-tagline{
+    margin:6px 0 0;
+    font-size:13px;
+    color:var(--footer-ink);
+    font-weight:300;
+    line-height:1.28;
+    max-width:210px; 
+}
+
+.footer-list{ list-style:none; margin:0; padding:0; }
+.footer-list li+li{ margin-top:8px; }
+.footer-list a{ color:var(--footer-ink); text-decoration:none; font-size:14px; display:inline-block; }
+.footer-list a:hover{ opacity:.85; }
+
+.footer-explore .footer-note{
+    margin:0 0 8px;
+    white-space:nowrap;
+    color:var(--footer-ink);
+    font-size:14px;
+}
+
+.footer-connect{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note {
+    max-width:210px; 
+}
+
+.footer-connect-note{
+    margin:6px 0 12px;
+    color:var(--footer-ink);
+    font-size:14px;
+    line-height:1.35;
+    white-space:normal;
+    word-wrap:break-word;
+}
+
+.footer-social {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 100px !important; 
+    margin: 6px 0 10px !important;
+}
+
+.footer-social .soc {
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    object-fit: contain !important; 
+    vertical-align: middle !important;
+    margin: 0 !important; 
+}
+
+.footer-search{ display:flex; align-items:center; gap:8px; }
+.footer-search input{
+    width:170px; height:28px;
+    padding:0 10px; border:0; outline:0;
+    background:#fff; color:#1c1b1a; font-size:13px;
+    border-radius:2px;
+}
+.footer-search button{
+    height:28px; padding:0 12px; border:0; cursor:pointer;
+    background:var(--footer-accent); color:#fff; font-size:12px; font-weight:400;
+    border-radius:2px;
+}
+
+.footer-more{
+    display:inline-block; padding:8px 16px; font-size:13px; font-weight:700;
+    text-decoration:none; background:var(--footer-accent); color:#fff;
+    border-radius:2px;
+}
+
+.footer-rule{
+    width:min(1100px,92vw);
+    margin:22px auto 0;
+    height:1px; border:0; background:rgba(255,255,255,.12);
+}
+
+.footer-copy{
+    width:min(1100px,92vw);
+    margin:0 auto;
+    text-align:center;
+    font-size:11px;
+    color:var(--footer-ink);
+    padding:14px 12px 28px;
+    font-weight:300;
+    opacity:0.55;
+    display:flex;
+    align-items:center; 
+    justify-content:center;
+    line-height:1.45;
+}
+
+@media (max-width:900px){
+    .footer-inner{ grid-template-columns:1fr 1fr; row-gap:28px; }
+    .footer-copy{ padding-bottom:22px; }
+}
+@media (max-width:560px){
+    .footer-inner{ grid-template-columns:1fr; }
+    .footer-wordmark{ font-size:40px; }
+    .footer-mark{ width:48px; height:48px; flex:0 0 48px; }
+    .footer-tagline{ max-width:180px; font-size:13px; }
+    .footer-connect .footer-h,
+    .footer-connect .footer-connect-note { max-width:100%; }
+}
+
+.brandlockup {
+    display: flex !important;
+    align-items: flex-start !important; 
+    gap: 10px !important;
+    margin: 0 0 6px 0 !important;
+}
+
+.footer-mark {
+    width: 46px !important;
+    height: 46px !important;
+    flex: 0 0 46px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    transform: translateY(4px) !important; 
+    will-change: transform;
+}
+
+.footer-brand-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+.footer-wordmark {
+    display: inline-block !important;
+    margin: 6px 0 0 0 !important; 
+    padding: 0 !important;
+    font-size: 33px !important;
+    font-weight: 700 !important;
+    letter-spacing: .14em !important;
+    line-height: 1 !important;
+    color: #E6E0DC !important;
+}
+
+.footer-tagline {
+    margin: 6px 0 0 0 !important;
+    font-size: 14.2px !important;
+    line-height: 1.28 !important;
+    max-width: 220px !important;
+    color: var(--footer-ink) !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.1em;
+}
+
+.footer-explore .footer-note{
+    max-width:220px !important;
+    white-space:normal !important;
+}
+.footer-search input{ width:150px !important; }
+
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note,
+.footer-connect .footer-social { max-width: 190px !important; }
+
+.footer-social{ gap:20px !important; margin:6px 0 10px !important; }
+.soc{ width:25px !important; height:25px !important; object-fit:contain !important; }
+
+.footer-rule{
+    width: 75%; 
+    margin: 18px auto 0; 
+    height:1px; border:0; background:rgba(255,255,255,.12);
+}
+.footer-copy{
+    width: min(900px, 92vw) !important;
+    max-width: 740px !important;
+    margin: 0 auto !important;
+    padding: 8px 12px 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 11px !important;
+    color: var(--footer-ink) !important;
+    line-height: 1.45 !important;
+    opacity: 0.55 !important;
+    font-weight: 300 !important;
+    white-space: normal !important;
+    min-height: 46px !important;
+}
+
+@media (max-width:900px){
+    .footer-inner{ grid-template-columns:1fr 1fr !important; row-gap:28px !important; }
+    .footer-copy{ padding-bottom:22px !important; max-width:86vw !important; }
+}
+@media (max-width:560px){
+    .brandlockup{ gap:10px !important; }
+    .footer-mark{ width:48px; height:48px; transform: translateY(2px) !important; }
+    .footer-wordmark{ font-size:20px; margin-top:6px; }
+    .footer-tagline{ max-width:100%; font-size:13px; }
+    .footer-connect .footer-h,
+    .footer-connect .footer-connect-note,
+    .footer-connect .footer-social { max-width:100% !important; }
+    .footer-search input{ width:170px !important; }
+    .footer-copy{ max-width:92vw !important; padding-bottom:16px !important; min-height:auto !important; }
+}
+.footer-copy {
+    margin-top: 5px !important;
+}
+
+.brandlockup { position: relative; display:flex; align-items:flex-start; gap:12px; }
+
+.footer-mark {
+    position: relative; 
+    transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y));
+    will-change: transform;
+    width: 46px;
+    height: 46px;
+}
+
+.footer-wordmark {
+    position: relative;
+    transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y));
+    display: inline-block; 
+}
+
+.footer-tagline {
+    position: relative;
+    transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y));
+    display: block;
+}
+
+.footer-band .footer-inner .footer-brand .brandlockup .footer-mark,
+.footer-band .footer-inner .brandlockup .footer-mark {
+    position: relative !important;
+    transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y)) !important;
+    will-change: transform !important;
+    width: 46px !important;
+    height: 46px !important;
+}
+
+.footer-band .footer-inner .footer-brand .footer-wordmark,
+.footer-band .footer-inner .brandlockup .footer-wordmark {
+    position: relative !important;
+    transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y)) !important;
+    display: inline-block !important;
+}
+
+.footer-band .footer-inner .footer-brand .footer-tagline,
+.footer-band .footer-inner .footer-tagline {
+    position: relative !important;
+    transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y)) !important;
+    display: block !important;
+}
+
+.site-footer { color: #434343; }
+.site-footer * { color: #434343; }
+.footer-wordmark,
+.footer-mark {
+    color: #fff !important;
+    filter: none !important;
+}
+.footer-mark {
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+}
+.footer-h,
+.footer-list a,
+.footer-note,
+.footer-connect-note,
+.footer-copy,
+.footer-tagline {
+    color: #A1A1A1 !important;
+}
+
+.footer-more {
+    background: var(--footer-accent) !important;
+    color: #fff !important; 
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18) !important;
+    padding: 8px 16px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    border-radius: 4px !important;
+}
+
+.footer-more, .footer-more * {
+    color: #fff !important;
+}
+
+.footer-band .site-footer .footer-more,
+.footer-band .site-footer .footer-more * {
+    color: #fff !important;
+    background: var(--footer-accent) !important;
+}
+
+/* >>> Fix: remove unexpected space above fixed header <<< */
+/* Put this at the BOTTOM of your CSS so it overrides earlier rules */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Ensure fixed header sits exactly at the top and on top of everything */
+.header-wrapper {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Remove any accidental top spacing from the first page block */
+.bg-long,
+.bg-long > * {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* If hero/section or other elements intentionally add header spacing,
+   cancel it so header is flush. This targets common culprits. */
+.hero-section,
+.header-wrapper + .bg-long,
+.header-wrapper + section,
+section:first-of-type {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* tiny safety: cancel any translate/transform that might visually push header */
+.header-wrapper,
+.header-wrapper::before {
+  transform: none !important;
+}
+
+/* finally, repaint to avoid subpixel gaps on some browsers */
+body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+/* ---------- Two-column vertical infinite carousels ---------- */
+/* Tweak these variables to control size, spacing and speed */
+/* ---------- Improved two-column vertical infinite carousels ---------- */
+/* Clear, editable variables for easy control */
+/* ---------- Fixed & controllable vertical carousel ---------- */
+
+/* ---------- VARIABLES (tweak these as needed) ---------- */
+:root{
+  --vcol-width: 280px;          /* column width (desktop) - use px or % */
+  --v-tile-height: 380px;       /* default tile height */
+  --v-tile-radius: 20px;
+  --v-tile-gap: 18px;           /* equal vertical spacing between tiles */
+  --v-scroll-duration-left: 26s;
+  --v-scroll-duration-right: 20s;
+  --v-wrap-gap: 36px;
+  --v-padding: 28px;
+
+  /* nudges: whole wrap / per-column / per-tile (override inline or on container) */
+  --v-wrap-nudge-x: 300px;    /* move the whole carousel left/right */
+  --v-wrap-nudge-y: 0px;    /* move the whole carousel up/down */
+
+  --v-left-nudge-x: 18px;    /* move left column */
+  --v-left-nudge-y: 0px;
+  --v-right-nudge-x: 0px;   /* move right column */
+  --v-right-nudge-y: 0px;
+
+  /* per-tile defaults (override on a single .v-tile via inline style) */
+  --tile-scale: 1;
+  --tile-translate-x: 0px;
+  --tile-translate-y: 0px;
+}
+
+/* ---------- WRAPPER ---------- */
+.v-carousel-wrap{
+  width: min(1200px, 94vw);
+  margin: 32px auto;
+  display:flex;
+  gap: var(--v-wrap-gap);
+  padding: var(--v-padding);
+  box-sizing: border-box;
+  align-items: start;
+  justify-content: center;
+
+  /* global nudge */
+  transform: translate(var(--v-wrap-nudge-x), var(--v-wrap-nudge-y));
+}
+
+/* ---------- COLUMN ---------- */
+/* apply per-column nudges via classes (left/right) */
+.v-carousel{
+  width: var(--vcol-width);
+  height: calc( (var(--v-tile-height) + var(--v-tile-gap)) * 4 ); /* visible window (4 tiles) */
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* per-column translate — place below header so it doesn't affect flow */
+.v-carousel--left { transform: translate(var(--v-left-nudge-x), var(--v-left-nudge-y)); }
+.v-carousel--right { transform: translate(var(--v-right-nudge-x), var(--v-right-nudge-y)); }
+
+/* ---------- TRACK (vertical stack + animation) ---------- */
+.v-track{
+  display: flex;
+  flex-direction: column;
+  gap: var(--v-tile-gap);
+  /* ensure animation is explicit and present */
+  animation: vscroll linear infinite;
+  will-change: transform;
+  margin: 0; /* no accidental margins */
+}
+
+/* make sure both columns can have their own durations (but keep animation present) */
+.v-carousel--left .v-track  { animation-duration: var(--v-scroll-duration-left); }
+.v-carousel--right .v-track { animation-duration: var(--v-scroll-duration-right); }
+
+/* pause on hover/focus */
+.v-carousel:hover .v-track,
+.v-carousel:focus-within .v-track { animation-play-state: paused; }
+
+/* ---------- TILE ---------- */
+.v-tile{
+  width: 100%;
+  height: var(--v-tile-height);
+  border-radius: var(--v-tile-radius);
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  /* per-tile transform via variables (safe; doesn't affect spacing) */
+  transform: translate(var(--tile-translate-x, 0px), var(--tile-translate-y, 0px)) scale(var(--tile-scale, 1));
+  transition: transform .18s ease;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.03));
+}
+
+/* image fills tile */
+.v-tile img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+  background:#2b2b2b; /* placeholder when src is empty */
+}
+
+/* ---------- KEYFRAMES (scroll) ---------- */
+/* track must translate -50% for seamless loop when tracks are duplicated */
+@keyframes vscroll {
+  0%   { transform: translateY(0%); }
+  100% { transform: translateY(-50%); }
+}
+
+/* ---------- IMPORTANT: spacer at end of track so duplicate keeps same gap ---------- */
+.v-track::after {
+  content: "";
+  display: block;
+  height: var(--v-tile-gap); /* adds the same gap between last item and first item of next track */
+  width: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ensure duplicated track sits immediately after first without extra margins */
+.v-carousel .v-track + .v-track { margin-top: 0; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 880px) {
+  .v-carousel-wrap { flex-direction: column; gap: 24px; align-items: center; padding: 18px; }
+  .v-carousel { width: min(92vw, 420px); }
+  :root { --vcol-width: min(92vw, 420px); --v-tile-height: 180px; }
+}
+
+/* ---------- SAFETY OVERRIDES to prevent overlapping from older rules ---------- */
+/* remove stray left properties or transforms from other CSS that could cause overlap */
+.v-tile, .v-track, .v-carousel {
+  left: auto !important;
+  margin: 0 !important;
+}
+
+/* if you previously had nth-child transforms that created irregular gaps, neutralize them */
+.v-tile:nth-child(odd),
+.v-tile:nth-child(even),
+.v-tile.v-tile--stagger {
+  transform: none !important;
+}
+
+/* keep images consistent */
+.v-tile img { display:block !important; width:100% !important; height:100% !important; object-fit:cover !important; }
+
+/* ---------- EXAMPLES: how to nudge or resize (use inline style or on wrapper) ---------- */
+/* Example: nudge whole carousel right 40px and up 20px:
+   <div class="v-carousel-wrap" style="--v-wrap-nudge-x:40px; --v-wrap-nudge-y:-20px"> ... </div>
+
+   Example: nudge left column right by 24px:
+   <div class="v-carousel v-carousel--left" style="--v-left-nudge-x:24px"> ... </div>
+
+   Example: change tile size on this one carousel only:
+   <div class="v-carousel" style="--v-tile-height:300px; --vcol-width:280px"> ... </div>
+
+   Example: nudge an individual tile slightly:
+   <div class="v-tile" style="--tile-translate-x:6px; --tile-translate-y:4px; --tile-scale:1.03">...</div>
+*/
+
+/* ---------- keep animation pause on hover (explicit) ---------- */
+.v-carousel:hover .v-track,
+.v-carousel:focus-within .v-track { animation-play-state: paused !important; }
+.v-track {
+  gap: var(--v-tile-gap) !important;
+}
+
+.v-track::after {
+  content: "";
+  display: block;        /* becomes a flex child so gap applies */
+  width: 0;
+  height: 0;             /* zero height: avoids doubling the gap */
+  flex: 0 0 0;           /* do not grow/shrink */
+  visibility: hidden;    /* keep it invisible */
+  pointer-events: none;
+
+}
+
+
+/* fade overlay only on left column */
+.v-carousel--left {
+  position: relative; /* needed for absolute pseudo */
+  z-index: 0;
+}
+
+.v-carousel--left::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;                       /* overlap a bit to hide seams */
+  height: 200px;                       /* increase for stronger fade */
+  pointer-events: none;
+  z-index: 40;
+  background: linear-gradient(
+    to bottom,
+    rgba(27, 13, 9, 0) 0%,
+    rgba(27, 13, 9, 0.098) 45%,
+    rgba(27,13,9,0.95) 85%,
+    rgba(27,13,9,1) 100%
+  );
+}
+
+.v-carousel--right {
+  position: relative; /* needed for absolute pseudo */
+  z-index: 0;
+}
+
+.v-carousel--right::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;                       /* overlap a bit to hide seams */
+  height: 200px;                       /* increase for stronger fade */
+  pointer-events: none;
+  z-index: 40;
+  background: linear-gradient(
+    to bottom,
+    rgba(27,13,9,0) 0%,
+    rgba(27,13,9,0.55) 45%,
+    rgba(27,13,9,0.95) 85%,
+    rgba(27,13,9,1) 100%
+  );
+  box-shadow: inset 0 20px 40px rgba(27,13,9,0.12);
+}
+/* ---------- Submission / Survey Section (variable-driven) ---------- */
+
+/* Default variables: change these globally or override inline on .submit-section */
+/* ===================================================================
+   Submission / Survey Section — FULL STYLES (drop-in replacement)
+   Variables at top control everything: sizes, positions, visibility.
+   =================================================================== */
+
+:root{
+  /* layout */
+  --submit-max-width: 1300px;
+  --submit-padding: clamp(20px, 5vw, 56px);
+  --submit-gap: 36px;
+
+  /* column widths (desktop) */
+  --submit-form-width: 460px;
+  --submit-gallery-width: 360px;
+
+  /* show/hide gallery column: set to "none" to hide */
+  --submit-gallery-display: block;
+
+  /* title & text scale */
+  --submit-title-size: 60px;
+  --submit-sub-size: 13px;
+  --submit-text-size: 15px;
+  --submit-line-height: 1.6;
+
+  /* form fields */
+  --submit-input-height: 44px;
+  --submit-input-radius: 12px;
+  --submit-input-bg: rgba(255, 255, 255, 0);
+  --submit-input-color: #724635; /* light text */
+
+  /* button */
+  --submit-btn-bg: #E3721A;
+  --submit-btn-color: #fff;
+  --submit-btn-padding: 10px 16px;
+  --submit-btn-radius: 6px;
+
+  /* spacing / nudges you can override inline on the section */
+  --submit-nudge-x: 0px;
+  --submit-nudge-y: -1550px;
+  --submit-title-nudge-x: 0px;
+  --submit-title-nudge-y: -10px;
+  --submit-form-nudge-x: 0px;
+  --submit-form-nudge-y: 80px;
+  --submit-gallery-nudge-x: 0px;
+  --submit-gallery-nudge-y: 200px;
+
+  /* decorative/visual */
+  --submit-inset-shadow: 0 10px 28px rgba(0, 0, 0, 0) inset;
+}
+
+/* ====================================================
+   Wrapper & layout
+   ==================================================== */
+.submit-section{
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--submit-padding);
+  transform: translate(var(--submit-nudge-x), var(--submit-nudge-y));
+  display: flex;
+  justify-content: center;
+  position: relative;
+  /* ensure no site-level pseudo overlays leak into this area */
+  isolation: isolate;
+}
+
+/* Prevent any ::before/::after that might cause ghost boxes inside this section */
+.submit-section *::before,
+.submit-section *::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* inner constrainer */
+.submit-inner{
+  width: min(var(--submit-max-width), 96vw);
+  display: flex;
+  gap: var(--submit-gap);
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* ----------------------------------------------------
+   Columns
+   ---------------------------------------------------- */
+.submit-col {
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Form column (main) */
+.submit-col--form{
+  width: var(--submit-form-width);
+  transform: translate(var(--submit-form-nudge-x), var(--submit-form-nudge-y));
+}
+
+/* Gallery (decorative) — you can hide it by setting
+   --submit-gallery-display: none on .submit-section inline or in :root */
+.submit-col--gallery{
+  width: var(--submit-gallery-width);
+  transform: translate(var(--submit-gallery-nudge-x), var(--submit-gallery-nudge-y));
+  display: var(--submit-gallery-display);
+}
+
+/* ====================================================
+   Title / Subtitle
+   ==================================================== */
+.submit-title{
+  font-size: var(--submit-title-size);
+  line-height: 1.05;
+  color: #fff;
+  margin: 0 0 8px 0;
+  transform: translate(var(--submit-title-nudge-x), var(--submit-title-nudge-y));
+  letter-spacing: .02em;
+  font-weight: 800;
+}
+
+.submit-sub{
+  margin: 0 0 18px 0;
+  color: rgba(255,255,255,0.78);
+  font-size: var(--submit-sub-size);
+  font-weight: 400;
+}
+
+/* ====================================================
+   Form layout & fields
+   ==================================================== */
+.submit-form{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  position: relative;
+  z-index: 3; /* keep form above any decorative visuals */
+}
+
+/* label + field stack */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label{
+  color: rgba(255,255,255,0.72);
+  font-size: 15px;
+  font-weight: 200;
+  letter-spacing: .03em;
+}
+
+/* Inputs / textareas */
+.field-input{
+  height: var(--submit-input-height);
+  border-radius: var(--submit-input-radius);
+  padding: 10px 14px;
+  background: var(--submit-input-bg);
+  color: var(--submit-input-color);
+  border: 0;
+  outline: none;
+  box-shadow: var(--submit-inset-shadow);
+  font-size: var(--submit-text-size);
+  resize: vertical;
+  font-weight: 100;
+  letter-spacing: 0.02em;
+  transition: box-shadow .12s ease, transform .12s ease;
+}
+
+/* textarea specific */
+.field textarea.field-input { min-height: 110px; height: auto; padding-top: 10px; padding-bottom: 10px; }
+
+/* file input (unstyled native) — we add a wrapper style to make it match */
+.file-field .file-input{
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  color: var(--submit-input-color);
+  height: auto;
+  padding: 8px 0;
+  border-radius: var(--submit-input-radius);
+}
+
+/* focus states (pure CSS) */
+.field-input:focus {
+}
+
+/* ====================================================
+   Actions
+   ==================================================== */
+.submit-actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-submit{
+  background: var(--submit-btn-bg);
+  color: var(--submit-btn-color);
+  padding: var(--submit-btn-padding);
+  border-radius: var(--submit-btn-radius);
+  border: 0;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+/* ====================================================
+   Quote
+   ==================================================== */
+.submit-quote {
+  margin-top: 100px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.381);
+  font-weight: 50;
+  text-align: center;
+}
+
+/* ====================================================
+   Decorative gallery tiles (kept simple and optional)
+   ==================================================== */
+.submit-gallery{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.submit-tile {
+  width: 100%;
+  height: 120px;
+  border-radius: 14px;
+}
+
+/* If you want the gallery to include the vertical carousel, drop the carousel markup
+   inside .submit-col--gallery. This placeholder keeps things neat when gallery is hidden. */
+
+/* ====================================================
+   Responsive rules
+   ==================================================== */
+@media (max-width: 880px) {
+  :root {
+    --submit-form-width: 92vw;
+    --submit-gallery-width: 92vw;
+    --submit-title-size: 22px;
+    --submit-input-height: 44px;
+  }
+
+  .submit-inner {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .submit-col--form, .submit-col--gallery {
+    width: 100%;
+    transform: none;
+  }
+
+  .submit-gallery {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .submit-tile { height: 92px; width: calc((100% / 3) - 8px); }
+}
+
+/* ====================================================
+   Accessibility & niceties
+   ==================================================== */
+/* show invalid states w/o JS */
+.field-input:invalid { box-shadow: 0 8px 22px rgba(220, 30, 30, 0) inset; }
+
+/* make sure the whole section avoids strange overlays from outer components */
+.submit-section { overflow: visible; }
+
+/* ===================================================================
+   USAGE NOTES:
+   - To hide the decorative gallery column: set --submit-gallery-display: none
+     inline on the element or in your global :root. Example:
+     <section class="submit-section" style="--submit-gallery-display:none">...</section>
+
+   - To nudge/move elements:
+     <section class="submit-section" style="--submit-nudge-x:-20px; --submit-nudge-y:10px">
+     or on the form column: <div class="submit-col--form" style="--submit-form-nudge-x:-24px">...</div>
+
+   - To change form width:
+     style="--submit-form-width:380px"
+
+   - Everything is CSS-only (no JS required). Adjust variables for layout tuning.
+   =================================================================== */
+/* consistent input + textarea + file background color */
+.submit-form input[type="text"],
+.submit-form textarea,
+.submit-form input[type="file"] {
+  background: rgba(77, 45, 28, 0.35); /* same translucent brown */
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #f5f5f521;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: background 0.2s ease;
+}
+
+/* add subtle hover/focus effect */
+.submit-form input[type="text"]:focus,
+.submit-form textarea:focus,
+.submit-form input[type="file"]:focus {
+  background: rgba(77, 45, 28, 0.45); /* slightly darker on focus */
+}
+
+/* make file input match others */
+.submit-form input[type="file"] {
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #f5f5f5;
+}
+
+/* fix text color for placeholder */
+.submit-form input::placeholder,
+.submit-form textarea::placeholder {
+  color: rgba(245, 245, 245, 0.65);
+}
+
+/* ---------- Simple centered feature block (variable driven) ---------- */
+
+/* Defaults -- override in :root or inline on the section element */
+:root{
+  --sf-max-width: 720px;           /* max width of inner content */
+  --sf-padding: clamp(20px, 6vw, 48px);
+  --sf-gap: 12px;
+
+  --sf-icon-size: 110px;           /* width & height of the icon image */
+  --sf-icon-radius: 6px;
+
+  --sf-sub-size: 12px;
+  --sf-sub-color: #E3721A;
+  --sf-title-size: clamp(26px, 4.2vw, 38px);
+  --sf-title-color: #434343;
+  --sf-copy-size: 16px;
+  --sf-copy-color: #434343;
+  --sf-copy-line-length: 64ch;
+
+  /* nudges: move the whole block or specific parts */
+  --sf-nudge-x: 0px;               /* move whole section left/right */
+  --sf-nudge-y: -500px;               /* move whole section up/down */
+  --sf-icon-nudge-x: 0px;          /* adjust icon position */
+  --sf-icon-nudge-y: 0px;
+  --sf-title-nudge-x: 0px;
+  --sf-title-nudge-y: 0px;
+  --sf-copy-nudge-x: 0px;
+  --sf-copy-nudge-y: 0px;
+
+  /* alignment: center by default; set to 'left' to left-align text */
+  --sf-text-align: center;
+}
+
+/* outer section */
+.simple-feature {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--sf-padding);
+  transform: translate(var(--sf-nudge-x), var(--sf-nudge-y));
+  display: flex;
+  justify-content: center;
+  text-align: var(--sf-text-align);
+}
+
+/* inner constrained area */
+.simple-inner {
+  width: min(var(--sf-max-width), 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sf-gap);
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* icon image (left blank by default) */
+.simple-icon {
+  width: var(--sf-icon-size);
+  height: var(--sf-icon-size);
+  object-fit: contain;
+  border-radius: var(--sf-icon-radius);
+  display: block;
+  transform: translate(var(--sf-icon-nudge-x), var(--sf-icon-nudge-y));
+  pointer-events: none; /* decorative */
+  opacity: 0.98;
+   filter: brightness(0) saturate(100%) invert(25%) sepia(1%) saturate(357%) hue-rotate(177deg) brightness(98%) contrast(92%);
+}
+
+/* subtitle */
+.simple-subtitle {
+  margin: 0;
+  font-size: var(--sf-sub-size);
+  color: var(--sf-sub-color);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* title */
+.simple-title {
+  margin: 0;
+  font-size: var(--sf-title-size);
+  color: var(--sf-title-color);
+  font-weight: 800;
+  line-height: 1.03;
+  transform: translate(var(--sf-title-nudge-x), var(--sf-title-nudge-y));
+}
+
+/* copy block */
+.simple-copy {
+  margin: 0;
+  color: var(--sf-copy-color);
+  font-size: var(--sf-copy-size);
+  line-height: 1.6;
+  max-width: var(--sf-copy-line-length);
+  transform: translate(var(--sf-copy-nudge-x), var(--sf-copy-nudge-y));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* responsive: smaller icon & text on narrow screens */
+@media (max-width: 600px) {
+  :root {
+    --sf-icon-size: 68px;
+    --sf-title-size: clamp(20px, 6vw, 26px);
+    --sf-copy-size: 15px;
+  }
+  .simple-inner { gap: 10px; padding: 0 6px; }
+}
+
+:root {
+    /* ... existing variables ... */
+    
+    /* --- NEW FOOTER COLOR CONTROLS --- */
+    --footer-text-color-new: #A1A1A1; /* Set your desired color here */
+    --footer-heading-color-new: #A1A1A1; /* Set your desired color for H & Wordmark */
+    /* ----------------------------------- */
+    
+    --footer-mark-nudge-x: -10px; 
+    /* ... existing variables ... */
+}
+
+/* ====================================
+   FOOTER TEXT COLOR OVERRIDES
+   (Place this block at the end of your CSS)
+==================================== */
+
+.footer-band {
+    /* Ensure the background color is controlled if needed */
+    background: #1B0D09; 
+    color: var(--footer-text-color-new); /* Target the main section color */
+}
+
+/* 1. Override the main text and links */
+.footer-inner, 
+.footer-list a,
+.footer-explore .footer-note,
+.footer-connect-note,
+.footer-tagline,
+.footer-copy {
+    color: var(--footer-text-color-new) !important;
+}
+
+/* 2. Override the heading and wordmark text color */
+.footer-h {
+    color: var(--footer-heading-color-new) !important;
+    /* Ensure letter spacing is reset if you want it to match the rest of the text */
+    letter-spacing: 0.06em; 
+}
+
+.footer-wordmark {
+    color: var(--footer-heading-color-new) !important;
+    /* You may need to adjust the font size here if the previous !important was too restrictive */
+    font-size: 33px !important;
+}
+
+/* 3. Ensure the footer copy has the new color */
+.footer-copy {
+    color: var(--footer-text-color-new) !important;
+}
+
+/* ====================================
+   FOOTER RULE COLOR OVERRIDE
+==================================== */
+
+.footer-rule {
+    /* Sets the background color to the desired #434343 */
+    background: #434343 !important; 
+    
+    /* You may also want to increase the height to make the dark color more visible */
+    /* height: 2px; */
+}
+
+/* ====================================
+   OVERRIDE: Footer Logo Image to #434343
+==================================== */
+/* ====================================
+   OVERRIDE: Target #434343 on Image
+==================================== */
+.footer-mark {
+    /* 1. Converts to grayscale. */
+    filter: grayscale(100%) 
+            /* 2. Sets the overall dark contrast. */
+            contrast(100000%) 
+            /* 3. Sets the brightness to a value close to the specific dark gray #434343. */
+            brightness(0.63) !important; 
+}
+.footer-copy {
+    /* Sets the text color to the desired #434343 */
+    color: #434343 !important; 
+    
+    /* Ensure opacity is 1 if you want it fully visible, or adjust as needed */
+    opacity: 1 !important; 
+}
+
+/* ====================================
+   FIX: HEADER LOGO VERTICAL ALIGNMENT
+==================================== */
+
+/* 1. Target the site header to ensure content is vertically aligned */
+.site-header {
+    /* Set the header back to the functional height to contain the nav */
+    height: 100px !important; 
+    
+    /* Ensure all grid items (logo, nav, button) are vertically centered */
+    align-items: center !important; 
+    
+    /* The linear-gradient background is likely causing the extra 100px height. 
+       Adjusting the background height is safest to keep the visual effect. */
+    background: linear-gradient(to bottom, rgba(27,13,9,1) 45%, rgb(27, 13, 9) 60%, rgba(27,13,9,0) 100%) ;
+}
+:root {
+    /* ... existing variables ... */
+
+    /* --- NEW BRAND IMAGE NUDGES --- */
+    --brand-img-nudge-x: 0px; 
+    --brand-img-nudge-y: -17px; 
+    /* ------------------------------ */
+
+    --brand-text-nudge-x: 0px; 
+    --brand-text-nudge-y: -17px; 
+    /* ------------------------------ */
+
+}
+
+.brand__img {
+    /* Apply the new variables using transform */
+    transform: translate(var(--brand-img-nudge-x), var(--brand-img-nudge-y)) !important;
+    
+    /* Ensure it behaves as a block element for reliable transformation */
+    display: block !important; 
+}
+
+.brand__text {
+
+    transform: translate(var(--brand-text-nudge-x), var(--brand-text-nudge-y)) !important;
+    
+    display: inline-block !important; 
+}
+
+/* Make page truly full-bleed */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Full-screen hero that fits any screen size */
+.location-hero {
+  /* Replace with your image path */
+  background-image: url("images/loc.png");
+  background-size: cover;         /* fill & crop as needed */
+  background-position: center;    /* keep subject centered */
+  background-repeat: no-repeat;
+  
+  width: 100%;
+  min-height: 100vh;              /* fallback */
+  min-height: 100dvh;             /* modern browsers: true viewport height */
+}
+
+/* Make the whole section clickable to Maps */
+.location-hero__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Optional: subtle press feedback */
+.location-hero__link:active {
+  filter: brightness(0.95);
+}
+/* your existing hero */
+.location-hero {
+  background-image: url("images/loc.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  min-height: 100dvh;
+  position: relative;          /* enable ::after positioning */
+  overflow: hidden;
+}
+
+/* brown fade sitting ON the image */
+.location-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom:0px;
+  height: px; /* adjust as you like */
+
+  /* transparent -> solid brown that matches footer */
+  background: linear-gradient(
+    to bottom,
+    rgba(43, 26, 20, 0) 0%,
+    rgba(43, 26, 20, 0.813) 60%,
+    #2b1a14 100%
+  );
+
+  pointer-events: none;
+}
+
+
+.location-hero {
+  position: relative;
+  min-height: 100dvh;
+  background-image: url("images/loc.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* brown fade overlay */
+.location-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px; /* tiny overlap to kill any seam */
+  height: clamp(160px, 22vh, 360px);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(27, 13, 9, 0) 20%,
+    rgba(27, 13, 9, 0.72) 75%,
+    #1B0D09 100%
+  );
+  pointer-events: none;
+}
+
+.next-section { background-color: #1B0D09; margin-top: 0; }
+
+:root {
+  /* nudge values (you can change them freely) */
+  --v-nudge-x: 620px;
+  --v-nudge-y: -290px;
+
+  /* font and color controls */
+  --v-title-size: 70px;
+  --v-sub-size:70;
+  --v-ink: #E26900;
+  --v-accent: #ffffff;
+}
+
+/* structure */
+.hero-callout {
+  position: relative;
+  left: clamp(20px, 9vw, 65px);
+  top: 72px;
+  max-width: 800px;
+  z-index: 5;
+  color: var(--v-ink);
+  transform: translate(var(--v-nudge-x), var(--v-nudge-y)); /* nudge here */
+}
+
+.hero-title {
+  margin: 0 0 10px 0;
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: 0.005em;
+  font-size: var(--v-title-size);
+  color: var(--v-ink);
+}
+
+.hero-title__lead { color: var(--v-ink); }
+.hero-title__color { color: var(--v-accent); }
+
+.hero-sub {
+  margin: 8px 0 0 0;
+  font-weight: 400;
+  font-size: var(--v-sub-size);
+  line-height: 1.5;
+  color: var(--v-ink);
+  max-width: 380px;
+}
+
+:root {
+  --card-w: 300px;
+  --card-h: 360px;
+  --card-gap: 28px;
+  --overlay: rgba(72, 39, 20, 0.476);
+  --fade-brown: #1B0D09;
+}
+
+/* Section layout */
+.help-section {
+  padding: 60px clamp(20px, 8vw, 120px);
+  color: #fff;
+}
+
+.help-heading {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.help-search {
+  display: block;
+  width: clamp(220px, 28%, 320px);
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 36px;
+}
+
+/* Grid */
+.help-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--card-gap);
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Card container */
+.help-card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  flex: 0 0 auto;
+  display: grid; /* Stack layers together */
+  grid-template: 1fr / 1fr;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.help-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Stack all layers perfectly */
+.help-img,
+.help-overlay,
+.help-fade {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image */
+.help-img {
+  display: block;
+}
+
+/* Transparent orange overlay */
+.help-overlay {
+  background: var(--overlay);
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.help-card:hover .help-overlay {
+  opacity: 0.6;
+}
+
+/* Brown fade bottom */
+.help-fade {
+  background: linear-gradient(
+    to bottom,
+    rgba(27, 13, 9, 0) 55%,
+    rgba(27, 13, 9, 0.9) 100%
+  );
+  pointer-events: none;
+}
+
+/* Title */
+.help-title {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  z-index: 3;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+.help-title::after {
+  content: " ›";
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+
+/* Card = 1-cell grid so all layers stack perfectly */
+.help-card{
+  position: relative;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  width: var(--card-w, 300px);
+  height: var(--card-h, 360px);
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+}
+
+/* All layers share the SAME size and corners */
+.help-img,
+.help-overlay,
+.help-fade{
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+/* Image fills the card; no stray gap */
+.help-img{
+  display: block;
+  object-fit: cover;
+}
+
+/* Overlay matches image exactly (not bigger) */
+.help-overlay{
+  background: rgba(226,105,0,.28);
+  pointer-events: none;
+}
+
+/* Brown fade at bottom */
+.help-fade{
+  background: linear-gradient(to bottom, rgba(27,13,9,0) 55%, rgba(27,13,9,.9) 100%);
+  pointer-events: none;
+}
+
+/* Title top-left */
+.help-title{
+  position: absolute;
+  left: 14px; top: 12px; z-index: 3;
+  font-size: .95rem; font-weight: 700; color: #ffffff;
+}
+
+/* Make card a clean, padding-free stacking box */
+.help-card{
+  position: relative;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  padding: 0 !important;            /* kill inner frame */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Image must exactly fill the card content box */
+.help-card > .help-img{
+  grid-area: 1 / 1;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  margin: 0 !important;             /* kill any inherited margin */
+  padding: 0 !important;            /* kill any inherited padding */
+  border: 0;
+  border-radius: inherit;           /* corners match overlay */
+  box-shadow: none;
+}
+
+/* Overlay + fade must match the SAME box as the image */
+.help-card > .help-overlay,
+.help-card > .help-fade{
+  grid-area: 1 / 1;                 /* stack exactly on the image */
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Transparent orange tint */
+.help-card > .help-overlay{
+  background: rgba(73, 45, 19, 0.679);
+}
+
+/* Brown fade at bottom */
+.help-card > .help-fade{
+  background: linear-gradient(
+    to bottom,
+    rgba(27,13,9,0) 55%,
+    rgba(27,13,9,.9) 100%
+  );
+}
+
+:root{
+  --card-w: 300px;
+  --card-h: 360px;
+  --card-gap: 28px;
+
+  /* fade controls */
+  --fade-color: #1B0D09;  /* brown */
+  --fade-start: 55%;      /* where the fade starts (higher = shorter fade) */
+  --fade-end-opacity: 0.92;
+}
+
+/* stack layers so sizes match perfectly */
+.help-card{
+  position: relative;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* image fills card */
+.help-img{
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* BROWN FADING OVERLAY (only layer on top) */
+.help-fade{
+  grid-area: 1 / 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--fade-color) 0%, transparent) var(--fade-start),
+    color-mix(in srgb, var(--fade-color) calc(var(--fade-end-opacity)*100%), transparent) 100%
+  );
+}
+
+/* If you had an orange overlay, turn it off */
+.help-overlay{ display: none; }
+/* default offsets for every card's title */
+.help-card{
+  --title-nudge-x: 0px;   /* + right, - left  */
+  --title-nudge-y: -10px;   /* + down,  - up    */
+}
+
+/* title is absolutely positioned; doesn't affect the image size */
+.help-title{
+  position: absolute;
+  left: 14px;          /* base anchor (top-left) */
+  top: 12px;
+  transform: translate(var(--title-nudge-x), var(--title-nudge-y));
+  z-index: 3;
+  pointer-events: none;              /* clicks go through to card */
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,.25);
+}
+
+/* optional helpers to anchor elsewhere if you want */
+.help-card.title-bottom-left  .help-title{ left:14px;  right:auto; bottom:16px; top:auto; }
+.help-card.title-bottom-right .help-title{ right:14px; left:auto;  bottom:16px; top:auto; }
+.help-card.title-top-right    .help-title{ right:14px; left:auto;  top:12px;    bottom:auto; }
+
+
+/* ---- Controls ---- */
+:root{
+  /* Move the whole survey card */
+  --survey-nudge-x: 0px;          /* +right / -left  */
+  --survey-nudge-y: 1800px;          /* +down  / -up    */
+
+  /* Size */
+  --card-width: clamp(420px, 80vw, 900px);
+  --message-height: 220px;        /* make the textarea longer */
+
+  /* Look & feel */
+  --card-radius: 24px;
+  --shadow: 0 18px 38px rgba(0,0,0,.22);
+  --field-h: 48px;
+  --field-bd: #E6E6E6;
+  --pill: 999px;
+
+  /* Colors from your screenshot */
+  --ink: #2f2f2f;
+  --muted: #8b8b8b;
+  --btn-orange: #E26900;
+}
+
+/* ---- Section + card ---- */
+.survey-section{ display:flex; justify-content:center; padding:48px 16px 96px; }
+.survey-card{
+  width: var(--card-width);
+  background:#fff; color:var(--ink);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  padding: 28px 28px 22px;
+  transform: translate(var(--survey-nudge-x), var(--survey-nudge-y));
+}
+
+/* Title */
+.survey-title{
+  margin:0 0 18px; text-align:center;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 800; color:#6b6b6b;
+}
+
+/* Layout */
+.survey-form{ display:flex; flex-direction:column; gap:14px; }
+.row{ display:grid; gap:12px; }
+.row.two{ grid-template-columns: 1fr 1fr; }
+@media (max-width: 640px){ .row.two{ grid-template-columns: 1fr; } }
+
+/* Fields */
+.survey-form input,
+.survey-form select{
+  height: var(--field-h);
+  border: 1px solid var(--field-bd);
+  border-radius: var(--pill);
+  background:#fff;
+  padding: 0 16px;
+  outline:none;
+}
+.survey-form textarea{
+  min-height: var(--message-height);    /* ← longer message box */
+  border: 1px solid var(--field-bd);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background:#fff;
+  resize: vertical;
+}
+
+/* Email icon on the left */
+.icon-left{ position:relative; }
+.icon-left input{ padding-left:48px; }
+.mail::before{
+  content:"✉"; position:absolute; left:16px; top:50%; transform:translateY(-50%);
+  color:#b6b6b6; font-size:16px;
+}
+
+/* Connected phone: code + number look like one pill */
+.phone-combo{ grid-template-columns: 160px 1fr; gap:0; }
+.code-wrap select{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+  appearance: none;
+  padding-right: 36px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #c5c5c5 50%),
+    linear-gradient(135deg, #c5c5c5 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+#phone{
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+}
+
+/* Submit button (exact orange pill) */
+.submit-btn{
+  height: 46px;
+  border-radius: 999px;
+  border:none;
+  color:#fff;
+  font-weight:800;
+  letter-spacing:.6px;
+  background: linear-gradient(180deg, #ff8a2a, var(--btn-orange));
+  box-shadow: 0 4px 10px rgba(226,105,0,.35) inset;
+  cursor:pointer;
+}
+.submit-btn:active{ transform: translateY(1px); }
+
+/* Terms */
+.terms{ margin:10px 0 0; text-align:center; font-size:12px; color:var(--muted); }
+.terms a{ color:#2f2f2f; font-weight:700; text-decoration:none; }
+
+/* A11y helper */
+.sr-only{
+  position:absolute !important; width:1px; height:1px; overflow:hidden;
+  clip: rect(1px,1px,1px,1px); white-space:nowrap;
+}
+
+/* Make the phone pair a single pill */
+.row.two.phone-combo{
+  display: flex !important;       /* override grid for this row */
+  gap: 0;
+  border: 1px solid var(--field-bd);
+  border-radius: var(--pill);
+  overflow: hidden;               /* clips inner corners perfectly */
+  background: #fff;
+  height: var(--field-h);
+}
+
+/* Country code (fixed width) */
+.row.two.phone-combo .code-wrap{
+  flex: 0 0 120px;                /* adjust to taste: 120–160px */
+  display: flex;
+}
+.row.two.phone-combo .code-wrap select{
+  border: none;                   /* no seam */
+  border-radius: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0 36px 0 14px;
+  appearance: none;
+  background:
+    linear-gradient(45deg, transparent 50%, #c5c5c5 50%),
+    linear-gradient(135deg, #c5c5c5 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Phone number (fills the rest) */
+.row.two.phone-combo #phone{
+  flex: 1 1 auto;
+  border: none;                   /* no seam */
+  border-radius: 0;
+  height: 100%;
+  padding: 0 16px;
+}
+
+/* Keep other input styles the same */
+.survey-form input,
+.survey-form select{
+  height: var(--field-h);
+  border: 1px solid var(--field-bd);
+  border-radius: var(--pill);
+  background: #fff;
+  padding: 0 16px;
+  outline: none;
+}
+
+/* Remove the double-border on the phone row specifically */
+.row.two.phone-combo select,
+.row.two.phone-combo #phone{
+  border: none;                   /* wrapper provides the border */
+}
+
+:root{
+  /* move the whole block if needed */
+  --thanks-nudge-x: 0px;   /* +right / -left */
+  --thanks-nudge-y: 3700px;   /* +down  / -up   */
+
+  --thanks-maxw: 760px;    /* width of text block */
+}
+
+.thanks-section{
+  padding: 48px 16px 72px;
+  display: flex;
+  justify-content: center;
+}
+
+.thanks-wrap{
+  max-width: var(--thanks-maxw);
+  text-align: center;
+  transform: translate(var(--thanks-nudge-x), var(--thanks-nudge-y));
+}
+
+.thanks-title{
+  margin: 0 0 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: clamp(22px, 3vw, 28px);
+  color: #4a403a; /* soft dark, like screenshot */
+}
+
+.thanks-body{
+  margin: 0;
+  line-height: 1.6;
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: #6e625c; /* muted gray-brown */
+}

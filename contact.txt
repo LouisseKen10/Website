@@ -1,0 +1,59 @@
+/* contact.css - Final Robust Fix */
+
+/* Globals and Reset */
+* {
+    box-sizing: border-box;
+    margin: 0 !important; 
+    padding: 0 !important;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------------------------------------------- */
+/* 1. CSS Variable Setup (Using correct file and dimensions) */
+/* ---------------------------------------------------- */
+
+:root {
+    --bg-url: url('images/contact.jpg'); 
+    
+    /* Using the confirmed precise dimensions */
+    --image-original-width: 5760; 
+    --image-original-height: 20410; 
+}
+
+/* ---------------------------------------------------- */
+/* 2. The Long Background Element (.bg-long) - THE SOLUTION */
+/* ---------------------------------------------------- */
+
+.bg-long {
+    width: 100%;
+    
+    /* FIX 1: Set min-height to the precise, non-buffering calculation */
+    min-height: calc(100vw * (var(--image-original-height) / var(--image-original-width)));
+
+    margin: 0; 
+    padding: 0; 
+
+    background-image: var(--bg-url);
+    background-repeat: no-repeat;
+    background-position: center top;
+
+    /* 🔥 FINAL FIX: Set height to 100.1% to cover sub-pixel rounding gap without zoom */
+    background-size: 100% 100.1%; 
+
+    background-attachment: scroll; 
+    display: block;
+}
+
+/* ---------------------------------------------------- */
+/* 3. The Body Element (Cleaned) */
+/* ---------------------------------------------------- */
+
+body {
+    /* Keeping this clean */
+}

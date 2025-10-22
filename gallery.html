@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <title>OhSnap — Learn</title>
+    <link rel="stylesheet" href="gallery.css" />
+    <script src="scroll.js" defer></script>
+</head>
+<body>
+    
+    <div class="header-wrapper">
+        <header class="site-header">
+            <a class="brand" href="gallery.html">
+                <img class="brand__img" src="images/logo2.png" alt="OhSnap logo">
+                <span class="brand__text">OhSnap</span>
+            </a>
+            <a class="logout-btn" href="index.html">LOGOUT</a>
+        </header>
+
+        <nav class="site-nav">
+            <a href="home.html" class="nav-link">HOME</a>
+            <a href="about.html" class="nav-link">ABOUT</a>
+            <a href="learn.html" class="nav-link">LEARN</a>
+            <a href="gallery.html" class="nav-link is-active">GALLERY</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
+        </nav>
+    </div>
+
+    <section class="bg-long">
+              <!-- INFINITE CAROUSEL (paste into your .bg-long) -->
+              <!-- Two-column vertical infinite carousels -->
+      <div class="v-carousel-wrap">
+
+        <!-- LEFT column -->
+        <div class="v-carousel v-carousel--left" aria-hidden="false">
+          <div class="v-track">
+            <!-- Tiles: leave src empty for now; replace data-src or src with your files -->
+            <div class="v-tile"><img src="images/p1.jfif" data-src="images/gallery/photo01.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p2.png" data-src="images/gallery/photo02.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p3.jpg" data-src="images/gallery/photo03.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p4.jpg" data-src="images/gallery/photo04.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p5.png" data-src="images/gallery/photo05.jpg" alt=""></div>
+            <!-- duplicate items to help the seamless loop feel (optional, but recommended) -->
+          </div>
+
+          <!-- duplicate track for seamless infinite loop -->
+          <div class="v-track" aria-hidden="true">
+            <div class="v-tile"><img src="images/p6.jpg" data-src="images/gallery/photo01.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p7.jpg" data-src="images/gallery/photo02.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p1.jfif" data-src="images/gallery/photo03.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p1.jfif" data-src="images/gallery/photo04.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p2.png" data-src="images/gallery/photo05.jpg" alt=""></div>
+          </div>
+        </div>
+
+        <!-- RIGHT column -->
+        <div class="v-carousel v-carousel--right" aria-hidden="false">
+          <div class="v-track">
+            <div class="v-tile"><img src="images/p7.jpg" data-src="images/gallery/photo06.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p6.jpg" data-src="images/gallery/photo07.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p5.png" data-src="images/gallery/photo08.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p4.jpg" data-src="images/gallery/photo09.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p3.jpg" data-src="images/gallery/photo10.jpg" alt=""></div>
+          </div>
+
+          <div class="v-track" aria-hidden="true">
+            <div class="v-tile"><img src="images/p2.png" data-src="images/gallery/photo06.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p1.jfif" data-src="images/gallery/photo07.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p7.jpg" data-src="images/gallery/photo08.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p6.jpg" data-src="images/gallery/photo09.jpg" alt=""></div>
+            <div class="v-tile"><img src="images/p5.png" data-src="images/gallery/photo10.jpg" alt=""></div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Submission / Survey Section -->
+      <section class="submit-section" aria-labelledby="submit-title">
+        <div class="submit-inner">
+          <div class="submit-col submit-col--form">
+            <h2 id="submit-title" class="submit-title">SUBMIT AND SHOW YOUR STORY</h2>
+            <p class="submit-sub">Fill up the following information</p>
+
+            <form class="submit-form" action="#" method="post" enctype="multipart/form-data" novalidate>
+              <label class="field">
+                <span class="field-label">Name:</span>
+                <input class="field-input" type="text" name="name" placeholder="Your full name" required>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Photo Title:</span>
+                <input class="field-input" type="text" name="title" placeholder="Title of the photo">
+              </label>
+
+              <label class="field">
+                <span class="field-label">Photo Description (short):</span>
+                <textarea class="field-input" name="description" rows="4" placeholder="A short description"></textarea>
+              </label>
+
+              <label class="field file-field">
+                <span class="field-label">Attach Photo:</span>
+                <input class="field-input file-input" type="file" name="photo" accept="image/*">
+              </label>
+
+              <div class="submit-actions">
+                <button class="btn-submit" type="submit">SUBMIT</button>
+              </div>
+            </form>
+
+            <blockquote class="submit-quote">“Photography is emotion made visible”</blockquote>
+      </section>
+
+<section class="simple-feature" aria-labelledby="simple-title">
+  <div class="simple-inner">
+    <!-- icon: leave src empty or replace with your image later -->
+    <img class="simple-icon" src="images/boldcaptures.png" alt="" aria-hidden="true">
+
+    <p class="simple-subtitle">LET THE STORY BEGIN</p>
+
+    <h2 id="simple-title" class="simple-title">LEARN &amp; ENJOY</h2>
+
+    <div class="simple-copy">
+      <p>
+        Explore our photo gallery where you can view amazing pictures from others, cast your votes, and see who makes it to the top leaderboard. The best entries will be featured on the website for everyone to enjoy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- INSERT THIS: CSS-only 3-slide gallery (paste where you want it to appear) -->
+<section class="css-only-gallery" aria-label="Featured photo gallery (no JS)">
+  <!-- radios (must be direct children of the section) -->
+  <input type="radio" name="css-slide" id="css-s1" checked>
+  <input type="radio" name="css-slide" id="css-s2">
+  <input type="radio" name="css-slide" id="css-s3">
+
+  <!-- wrapper used by CSS selectors -->
+  <div class="css-gallery-inner">
+
+    <!-- LEFT: meta/text -->
+  <div class="css-meta">
+    <p class="css-caption">CHECK OUT OTHERS' STORY</p>
+
+    <!-- Slide 1 -->
+    <div class="meta-set meta-1">
+      <h2 class="css-title">Title</h2>
+      <span class="css-author"><i>Beyond the Bell</i></span>
+      <p class="css-author">-Louisse Tiosejo</p>
+      <h3 class="css-title">Description</h3>
+      <p class="css-desc">Through every frame, the spirit of school life comes alive, capturing simple moments and turning them into lasting memories.</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="meta-set meta-2">
+      <h2 class="css-title">Title</h2>
+      <span class="css-author"><i>Pillars of Faith</i></span>
+      <p class="css-author">-Juan Cruz</p>
+      <h3 class="css-title">Description</h3>
+      <p class="css-desc">Soft light fills the space as quiet moments unfold, revealing a sense of peace, reflection, and timeless grace that words can’t fully capture.</p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="meta-set meta-3">
+      <h2 class="css-title">Title</h2>
+      <span class="css-author"><i>Rhythm of the Street</i></span>
+      <p class="css-author">-Paul Tolentino</p>
+      <h3 class="css-title">Description</h3>
+      <p class="css-desc">The busy street hums with life as people, lights, and sounds blend together, creating a vivid picture of energy, movement, and everyday stories unfolding at once.</p>
+    </div>
+
+      <!-- pure CSS rating (radios remain selected when clicked) -->
+      <div class="css-rate" aria-label="Rate this photo">
+        <span class="rate-label">RATE IT</span>
+        <div class="rate-stars">
+          <input type="radio" name="rate" id="r1"><label for="r1">★</label>
+          <input type="radio" name="rate" id="r2"><label for="r2">★</label>
+          <input type="radio" name="rate" id="r3"><label for="r3">★</label>
+          <input type="radio" name="rate" id="r4"><label for="r4">★</label>
+          <input type="radio" name="rate" id="r5"><label for="r5">★</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: visual (background slides + framed image + nav) -->
+    <div class="css-visual" role="region" aria-label="Gallery preview">
+
+      <!-- BG slides (set urls inline below) -->
+      <div class="slide-bg slide-bg-1" style="background-image: url('images/gal1.jfif');"></div>
+      <div class="slide-bg slide-bg-2" style="background-image: url('images/gal2.jpg');"></div>
+      <div class="slide-bg slide-bg-3" style="background-image: url('images/gal3.jpg');"></div>
+
+      <!-- framed preview images -->
+      <div class="css-frame">
+        <img class="frame-img img-1" src="images/gal1.jfif" alt="slide 1 preview">
+        <img class="frame-img img-2" src="images/gal2.jpg" alt="slide 2 preview">
+        <img class="frame-img img-3" src="images/gal3.jpg" alt="slide 3 preview">
+      </div>
+
+      <!-- nav tab: 3 sets shown/hidden via CSS depending on which radio is checked -->
+      <div class="css-vtab" aria-hidden="false">
+        <div class="set set-1">
+          <label class="tab" for="css-s3">‹</label>
+          <label class="tab" for="css-s2">›</label>
+        </div>
+        <div class="set set-2">
+          <label class="tab" for="css-s1">‹</label>
+          <label class="tab" for="css-s3">›</label>
+        </div>
+        <div class="set set-3">
+          <label class="tab" for="css-s2">‹</label>
+          <label class="tab" for="css-s1">›</label>
+        </div>
+      </div>
+
+    </div> <!-- .css-visual -->
+
+  </div> <!-- .css-gallery-inner -->
+</section>
+<!-- END INSERT -->
+
+
+
+
+
+<section class="leaderboard-card" aria-label="leaderboard card">
+  <div class="leaderboard-card__inner">
+    <span class="lb-rank">2nd</span>
+
+    <!-- blank image — you’ll add src later -->
+    <img class="lb-image" src="images/gal2.jpg" alt="leader image">
+
+    <p class="lb-title">Pillars of Faith</p>
+    <p class="lb-author">Juan Cruz</p>
+
+    <div class="lb-starbox">★</div>
+
+    <p class="lb-desc">Earned 750 ratings in a week</p>
+
+    <p class="lb-rating">
+      <span>4.5</span>
+      <span class="lb-star">★</span>
+    </p>
+  </div>
+</section>
+
+<section class="leaderboard-card2" aria-label="leaderboard card2">
+  <div class="leaderboard-card__inner2">
+    <span class="lb-rank2">1st</span>
+
+    <!-- blank image — you’ll add src later -->
+    <img class="lb-image2" src="images/gal1.jfif" alt="leader image2">
+
+    <p class="lb-title2">Beyond the Bell</p>
+    <p class="lb-author2">Louisse Tiosejo</p>
+
+    <div class="lb-starbox2">★</div>
+
+    <p class="lb-desc2">Earned 840 ratings in a week</p>
+
+    <p class="lb-rating2">
+      <span>4.8</span>
+      <span class="lb-star2">★</span>
+    </p>
+  </div>
+</section>
+
+<section class="leaderboard-card3" aria-label="leaderboard card3">
+  <div class="leaderboard-card__inner3">
+    <span class="lb-rank3">3rd</span>
+
+    <!-- blank image — you’ll add src later -->
+    <img class="lb-image3" src="images/gal3.jpg" alt="leader image3">
+
+    <p class="lb-title3">Rhythm of the Street</p>
+    <p class="lb-author3">Paul Tolentino</p>
+
+    <div class="lb-starbox3">★</div>
+
+    <p class="lb-desc3">Earned 602 ratings in a week</p>
+
+    <p class="lb-rating3">
+      <span>4.3</span>
+      <span class="lb-star3">★</span>
+    </p>
+  </div>
+</section>
+
+<section class="leaderboard-section">
+    <div class="leaderboard-overlay">
+        <h2 class="overlay-title">Other Entries</h2>
+
+        <div class="leaderboard-header">
+            <span class="header-rank">RANK</span>
+            <span class="header-photo-title">PHOTO TITLE</span>
+            <span class="header-earned-rates">EARNED RATES IN A WEEK</span>
+            <span class="header-total-rating">TOTAL RATING</span>
+        </div>
+
+        <div class="leaderboard-entries">
+            <div class="leaderboard-entry entry-4">
+                <span class="entry-rank">4</span>
+                <div class="entry-photo-details">
+                    <span class="entry-title">Beyond Time</span>
+                    <span class="entry-author">-Ken Ang</span>
+                </div>
+                <span class="entry-earned-rates">576 ratings</span>
+                <span class="entry-total-rating">4.3 <span class="star-icon">★</span></span>
+                <button class="entry-view-btn active">VIEW</button>
+            </div>
+
+            <div class="leaderboard-entry entry-5">
+                <span class="entry-rank">5</span>
+                <div class="entry-photo-details">
+                    <span class="entry-title">Breaking Boundaries</span>
+                    <span class="entry-author">-CJ Pascual</span>
+                </div>
+                <span class="entry-earned-rates">520 ratings</span>
+                <span class="entry-total-rating">4.4 <span class="star-icon">★</span></span>
+                <button class="entry-view-btn active">VIEW</button>
+            </div>
+
+            <div class="leaderboard-entry entry-6 faded">
+                <span class="entry-rank">6</span>
+                <div class="entry-photo-details">
+                    <span class="entry-title">Falling Silence</span>
+                    <span class="entry-author">-David Ross</span>
+                </div>
+                <span class="entry-earned-rates">486 ratings</span>
+                <span class="entry-total-rating">4.1 <span class="star-icon">★</span></span>
+                <button class="entry-view-btn faded">VIEW</button>
+            </div>
+        </div>
+
+        <button class="more-entries-btn">More</button>
+    </div>
+</section>
+    <h2 class="glbh-header">WEEKLY LEADER BOARD</h2>.
+    </section>
+    
+    <section class="footer-band">
+      <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+          
+          <div class="footer-col footer-brand">
+          <div class="brandlockup">
+            <img class="footer-mark" src="images/logo.png" alt="OhSnap mark" />
+              <span class="footer-wordmark">OhSnap</span>
+          </div>
+              <p class="footer-tagline">
+                Photography is emotion<br>made visible
+              </p>
+        </div>
+
+
+          <div class="footer-col footer-links">
+            <h4 class="footer-h">QUICK LINKS</h4>
+            <ul class="footer-list">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#learn">Learn</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#contact">Contacts</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-explore">
+            <h4 class="footer-h">EXPLORE</h4>
+            <p class="footer-note">Search something in the website</p>
+            <form class="footer-search" action="#" method="get">
+              <input type="text" name="q" placeholder="keyword" aria-label="Search">
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <div class="footer-col footer-connect">
+            <h4 class="footer-h">CONNECT WITH US</h4>
+            <div class="footer-social">
+              <img class="soc" src="images/fb.png" alt="Facebook">
+              <img class="soc" src="images/yt.png" alt="YouTube">
+              <img class="soc" src="images/twit.png" alt="X">
+              <img class="soc" src="images/ig.png" alt="Instagram">
+              <img class="soc" src="images/tt.png" alt="TikTok">
+            </div>
+            <p class="footer-connect-note">Feel free to contact us if you have questions</p>
+            <a class="footer-more" href="#">More</a>
+          </div>
+
+        </div>
+
+        <hr class="footer-rule">
+        <p class="footer-copy">
+          © 2025 Oh Snap. All rights reserved. This website and its content are protected by copyright.
+          No part may be reproduced, distributed, or used in any manner without written permission from Oh Snap.
+        </p>
+      </footer>
+    </section>
+
+
+</body>
+
+</html>

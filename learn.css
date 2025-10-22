@@ -1,0 +1,1653 @@
+/* learn.css */
+
+/* =========================
+    Base & Global Setup
+========================= */
+:root {
+    --ink: #434343;
+    --text: #1c1b1a;
+    --shadow-lg: 0 10px 30px rgba(0,0,0,.25);
+    --bg-url: url('images/learn.jpg'); 
+    /* --- FIXED IMAGE DIMENSIONS --- */
+    --image-original-width: 5759; 
+    --image-original-height: 23705;
+    /* ------------------------------ */
+    --footer-ink:#A1A1A1;
+    --footer-accent:#E3721A;
+    --footer-mark-nudge-x: -10px; 
+    --footer-mark-nudge-y: -5px; 
+    --footer-word-nudge-x: -13px;
+    --footer-word-nudge-y: 0px;
+    --footer-tagline-nudge-x: 0px;
+    --footer-tagline-nudge-y: 0px;
+    --nav-nudge-x: 13.5px;
+    --nav-nudge-y: 0px;
+    --logout-nudge-x: -16px;
+    --logout-nudge-y: 0px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+}
+
+html,
+body {
+    height: 100%;
+    font-family: "Gantari", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: #FBE5CF; 
+    margin: 0;
+    padding: 0; 
+    overflow-x: hidden;
+}
+
+/* =========================================================
+    HEADER WRAPPER (FIXED and Animated via JS)
+========================================================= */
+
+.header-wrapper {
+    position: relative; 
+    top: 0; 
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 64px;
+    background: transparent;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    backdrop-filter: none;
+    /* Removed all scroll-animation properties */
+    will-change: box-shadow;
+    /* Add transition for smooth JS-driven animation */
+    transition: box-shadow 0.3s ease; 
+}
+
+/* Background/blur layer */
+.header-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(251,229,207,.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    /* Add transition for smooth JS-driven animation */
+    transition: opacity 0.3s ease; 
+}
+
+/* --- NEW CLASS: APPLIED BY JAVASCRIPT ON SCROLL --- */
+.header-wrapper.is-scrolled {
+    box-shadow: var(--shadow-lg);
+}
+
+.header-wrapper.is-scrolled::before {
+    opacity: 1;
+}
+/* ---------------------------------------------------- */
+/* header wrapper base + overlay */
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: 64px;
+  background: transparent;
+  transition: box-shadow .3s ease, background-color .3s ease;
+  will-change: box-shadow, background-color;
+}
+
+/* the overlay / blur layer that fades in */
+.header-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(251,229,207, .92); /* final background color when scrolled */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  opacity: 0;                       /* start hidden */
+  pointer-events: none;
+  transition: opacity .28s ease, transform .28s ease, box-shadow .28s ease;
+  transform: translateZ(0);
+}
+
+/* visible scrolled state (JS fallback) */
+.header-wrapper.is-scrolled {
+  box-shadow: var(--shadow-lg);
+}
+.header-wrapper.is-scrolled::before {
+  opacity: 1;                       /* make overlay visible when scrolled */
+}
+
+/* small accessibility tweak — when user prefers reduced motion, don't animate */
+@media (prefers-reduced-motion: reduce) {
+  .header-wrapper::before,
+  .header-wrapper {
+    transition: none;
+  }
+}
+
+
+/* =========================================================
+    INNER HEADER & NAVIGATION
+========================================================= */
+
+.site-header {
+    position: relative; 
+    display: grid; 
+    grid-template-columns: auto 1fr auto; 
+    align-items: center; 
+    gap: 18px;
+    height: 64px;
+    padding-left: clamp(12px, 2vw, 20px);
+    padding-right: clamp(12px, 2vw, 20px);
+    background-color: #1b0d09ba;
+    border-bottom-left-radius: 25px ;
+    border-bottom-right-radius: 25px ;
+}
+
+.site-nav { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 32px;
+    transform: translate(var(--nav-nudge-x), var(--nav-nudge-y));
+    backdrop-filter: none; 
+    color: #FBE5CF;
+}
+
+/* Brand Styles */
+.brand{
+    display:inline-flex; align-items:center; gap:1px;
+    color:var(--ink); text-decoration:none;
+}
+.brand__img{
+    width:60px; height:60px; display:block;
+    filter: invert(99%) sepia(8%) saturate(200%) hue-rotate(8deg) brightness(101%) contrast(100%);
+}
+.brand__text{ font-weight:700; letter-spacing:.150em; color: #FBE5CF ; }
+
+/* Nav link appearance */
+.nav-link{
+    color:#FEF7EE; text-decoration:none;
+    font-weight:400; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    padding-bottom:8px; position:relative;
+    transition: color .2s ease, font-weight .15s ease;
+}
+.nav-link:hover{ font-weight:600; }
+.nav-link.is-active{ font-weight:800; }
+.nav-link.is-active::after{
+    content:""; position:absolute; left:50%; bottom:0;
+    width:40px; height:2px; transform:translateX(-50%);
+    background:#FEF7EE;
+}
+
+/* Logout Button */
+.logout-btn{
+    display:inline-block; text-decoration:none;
+    background:#e3721a; color:#fff;
+    padding:10px 14px; border-radius:0;
+    font-weight:bolder; font-size:12px; letter-spacing:.12em;
+    grid-column: 3 / 4; 
+    transform: translate(var(--logout-nudge-x), var(--logout-nudge-y));
+}
+
+/* =========================================================
+    The Long Background Element (.bg-long) 
+========================================================= */
+
+.bg-long {
+    width: 100%;
+    min-height: calc(100vw * (var(--image-original-height) / var(--image-original-width)));
+    margin: 0; 
+    padding: 0;
+    background-image: var(--bg-url);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100%; 
+    background-attachment: scroll; 
+    display: block;
+}
+
+/* =========================================================
+    FOOTER (NO CHANGES)
+========================================================= */
+
+.footer-band{
+    background:#1B0D09;
+    position:relative;
+    padding:36px 0 24px;
+    padding-bottom: 5px;
+    margin-top: -2px; 
+}
+
+.site-footer{ position:relative; background:transparent; color:var(--footer-ink); }
+
+.footer-inner{
+    width:min(1100px,92vw);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 1.05fr 0.9fr 1.05fr 1.25fr;
+    column-gap:clamp(22px, 5vw, 64px);
+    align-items:start;
+    line-height:1.55;
+    padding-left: clamp(20px, 4vw, 40px);
+    padding-right: clamp(20px, 4vw, 40px);
+}
+
+.footer-inner, .footer-inner *{ letter-spacing:0; }
+.footer-wordmark{ letter-spacing:.14em; }
+
+.footer-h{
+    margin:0 0 8px;
+    font-weight:700;
+    font-size:18px;
+    line-height:1.05;
+    color:#E6E0DC;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+}
+
+.brandlockup{
+    display:flex;
+    align-items:center; 
+    gap:10px; 
+    margin-bottom:6px;
+}
+
+.footer-mark{
+    width:60px; height:60px; object-fit:contain; display:block;
+    flex:0 0 60px;
+    margin:0;
+}
+
+.footer-brand-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.footer-wordmark{
+    font-weight:700;
+    font-size:40px;
+    color:#E6E0DC;
+    display:block;
+    line-height:1;
+    margin:0;
+}
+
+.footer-tagline{
+    margin:6px 0 0;
+    font-size:13px;
+    color:var(--footer-ink);
+    font-weight:300;
+    line-height:1.28;
+    max-width:210px; 
+}
+
+.footer-list{ list-style:none; margin:0; padding:0; }
+.footer-list li+li{ margin-top:8px; }
+.footer-list a{ color:var(--footer-ink); text-decoration:none; font-size:14px; display:inline-block; }
+.footer-list a:hover{ opacity:.85; }
+
+.footer-explore .footer-note{
+    margin:0 0 8px;
+    white-space:nowrap;
+    color:var(--footer-ink);
+    font-size:14px;
+}
+
+.footer-connect{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note {
+    max-width:210px; 
+}
+
+.footer-connect-note{
+    margin:6px 0 12px;
+    color:var(--footer-ink);
+    font-size:14px;
+    line-height:1.35;
+    white-space:normal;
+    word-wrap:break-word;
+}
+
+.footer-social {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 100px !important; 
+    margin: 6px 0 10px !important;
+}
+
+.footer-social .soc {
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    object-fit: contain !important; 
+    vertical-align: middle !important;
+    margin: 0 !important; 
+}
+
+.footer-search{ display:flex; align-items:center; gap:8px; }
+.footer-search input{
+    width:170px; height:28px;
+    padding:0 10px; border:0; outline:0;
+    background:#fff; color:#1c1b1a; font-size:13px;
+    border-radius:2px;
+}
+.footer-search button{
+    height:28px; padding:0 12px; border:0; cursor:pointer;
+    background:var(--footer-accent); color:#fff; font-size:12px; font-weight:400;
+    border-radius:2px;
+}
+
+.footer-more{
+    display:inline-block; padding:8px 16px; font-size:13px; font-weight:700;
+    text-decoration:none; background:var(--footer-accent); color:#fff;
+    border-radius:2px;
+}
+
+.footer-rule{
+    width:min(1100px,92vw);
+    margin:22px auto 0;
+    height:1px; border:0; background:rgba(255,255,255,.12);
+}
+
+.footer-copy{
+    width:min(1100px,92vw);
+    margin:0 auto;
+    text-align:center;
+    font-size:11px;
+    color:var(--footer-ink);
+    padding:14px 12px 28px;
+    font-weight:300;
+    opacity:0.55;
+    display:flex;
+    align-items:center; 
+    justify-content:center;
+    line-height:1.45;
+}
+
+@media (max-width:900px){
+    .footer-inner{ grid-template-columns:1fr 1fr; row-gap:28px; }
+    .footer-copy{ padding-bottom:22px; }
+}
+@media (max-width:560px){
+    .footer-inner{ grid-template-columns:1fr; }
+    .footer-wordmark{ font-size:40px; }
+    .footer-mark{ width:48px; height:48px; flex:0 0 48px; }
+    .footer-tagline{ max-width:180px; font-size:13px; }
+    .footer-connect .footer-h,
+    .footer-connect .footer-connect-note { max-width:100%; }
+}
+
+.brandlockup {
+    display: flex !important;
+    align-items: flex-start !important; 
+    gap: 10px !important;
+    margin: 0 0 6px 0 !important;
+}
+
+.footer-mark {
+    width: 46px !important;
+    height: 46px !important;
+    flex: 0 0 46px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    transform: translateY(4px) !important; 
+    will-change: transform;
+}
+
+.footer-brand-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+.footer-wordmark {
+    display: inline-block !important;
+    margin: 6px 0 0 0 !important; 
+    padding: 0 !important;
+    font-size: 33px !important;
+    font-weight: 700 !important;
+    letter-spacing: .14em !important;
+    line-height: 1 !important;
+    color: #E6E0DC !important;
+}
+
+.footer-tagline {
+    margin: 6px 0 0 0 !important;
+    font-size: 14.2px !important;
+    line-height: 1.28 !important;
+    max-width: 220px !important;
+    color: var(--footer-ink) !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.1em;
+}
+
+.footer-explore .footer-note{
+    max-width:220px !important;
+    white-space:normal !important;
+}
+.footer-search input{ width:150px !important; }
+
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note,
+.footer-connect .footer-social { max-width: 190px !important; }
+
+.footer-social{ gap:20px !important; margin:6px 0 10px !important; }
+.soc{ width:25px !important; height:25px !important; object-fit:contain !important; }
+
+.footer-rule{
+    width: 75%; 
+    margin: 18px auto 0; 
+    height:1px; border:0; background:rgba(255,255,255,.12);
+}
+.footer-copy{
+    width: min(900px, 92vw) !important;
+    max-width: 740px !important;
+    margin: 0 auto !important;
+    padding: 8px 12px 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 11px !important;
+    color: var(--footer-ink) !important;
+    line-height: 1.45 !important;
+    opacity: 0.55 !important;
+    font-weight: 300 !important;
+    white-space: normal !important;
+    min-height: 46px !important;
+}
+
+@media (max-width:900px){
+    .footer-inner{ grid-template-columns:1fr 1fr !important; row-gap:28px !important; }
+    .footer-copy{ padding-bottom:22px !important; max-width:86vw !important; }
+}
+@media (max-width:560px){
+    .brandlockup{ gap:10px !important; }
+    .footer-mark{ width:48px; height:48px; transform: translateY(2px) !important; }
+    .footer-wordmark{ font-size:20px; margin-top:6px; }
+    .footer-tagline{ max-width:100%; font-size:13px; }
+    .footer-connect .footer-h,
+    .footer-connect .footer-connect-note,
+    .footer-connect .footer-social { max-width:100% !important; }
+    .footer-search input{ width:170px !important; }
+    .footer-copy{ max-width:92vw !important; padding-bottom:16px !important; min-height:auto !important; }
+}
+.footer-copy {
+    margin-top: 5px !important;
+}
+
+.brandlockup { position: relative; display:flex; align-items:flex-start; gap:12px; }
+
+.footer-mark {
+    position: relative; 
+    transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y));
+    will-change: transform;
+    width: 46px;
+    height: 46px;
+}
+
+.footer-wordmark {
+    position: relative;
+    transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y));
+    display: inline-block; 
+}
+
+.footer-tagline {
+    position: relative;
+    transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y));
+    display: block;
+}
+
+.footer-band .footer-inner .footer-brand .brandlockup .footer-mark,
+.footer-band .footer-inner .brandlockup .footer-mark {
+    position: relative !important;
+    transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y)) !important;
+    will-change: transform !important;
+    width: 46px !important;
+    height: 46px !important;
+}
+
+.footer-band .footer-inner .footer-brand .footer-wordmark,
+.footer-band .footer-inner .brandlockup .footer-wordmark {
+    position: relative !important;
+    transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y)) !important;
+    display: inline-block !important;
+}
+
+.footer-band .footer-inner .footer-brand .footer-tagline,
+.footer-band .footer-inner .footer-tagline {
+    position: relative !important;
+    transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y)) !important;
+    display: block !important;
+}
+
+.site-footer { color: #A1A1A1; }
+.site-footer * { color: #A1A1A1; }
+.footer-wordmark,
+.footer-mark {
+    color: #fff !important;
+    filter: none !important;
+}
+.footer-mark {
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+}
+.footer-h,
+.footer-list a,
+.footer-note,
+.footer-connect-note,
+.footer-copy,
+.footer-tagline {
+    color: #A1A1A1 !important;
+}
+
+.footer-more {
+    background: var(--footer-accent) !important;
+    color: #fff !important; 
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18) !important;
+    padding: 8px 16px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    border-radius: 4px !important;
+}
+
+.footer-more, .footer-more * {
+    color: #fff !important;
+}
+
+.footer-band .site-footer .footer-more,
+.footer-band .site-footer .footer-more * {
+    color: #fff !important;
+    background: var(--footer-accent) !important;
+}
+
+/* learn.css - Header Wrapper ::before (Scrolled State) */
+
+.header-wrapper.is-scrolled::before {
+    /* Full background color */
+    background: rgba(251,229,207,.92) !important;
+    /* Apply the blur */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    /* Apply the bottom border */
+    border-bottom: 1px solid rgba(0,0,0,.06) !important;
+    /* Apply the shadow - this is now visible! */
+    box-shadow: var(--shadow-lg) !important; 
+}
+
+:root{
+  /* Quote controls */
+  --quote-nudge-x: 0px;          /* move the whole quote horizontally */
+  --quote-nudge-y: 230px;          /* move the whole quote vertically */
+  --quote-max-width: 500px;      /* max width of the quote text */
+  --quote-font-size: 18px;
+  --quote-line-height: 1.35;
+
+  /* Quote mark controls */
+  --quote-mark-offset-x: 36px;   /* horizontal distance from text to mark */
+  --quote-mark-size: 36px;       /* width & height of the quote images */
+  --quote-mark-opacity: 0.95;
+}
+
+/* Container that centers the quote inside the .bg-long area */
+.quote-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(36px, 6vw, 72px) 20px; /* vertical spacing */
+  transform: translate(var(--quote-nudge-x), var(--quote-nudge-y));
+  pointer-events: none; /* so clicks fall through unless you want otherwise */
+}
+
+/* blockquote itself — centered text with controlled width */
+.quote {
+  position: relative;
+  max-width: var(--quote-max-width);
+  text-align: center;
+  margin: 0;
+  pointer-events: auto;
+  background: transparent;
+}
+
+.quote-text {
+  display: inline-block;
+  font-size: var(--quote-font-size);
+  line-height: var(--quote-line-height);
+  color: #FFF;                     /* white text for overlay */
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+  font-weight: 100;
+  padding: 6px 36px;               /* tiny horizontal padding so marks don't overlap */
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+/* Quote mark images */
+.quote-mark {
+  position: absolute;
+  top: 50%;
+  width: var(--quote-mark-size);
+  height: var(--quote-mark-size);
+  object-fit: contain;
+  opacity: var(--quote-mark-opacity);
+  transform: translateY(-50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+  filter: invert(99%) sepia(8%) saturate(200%) hue-rotate(8deg) brightness(101%) contrast(100%);
+}
+
+/* left mark is left of the quote text */
+.quote-left {
+  left: calc(50% - (var(--quote-max-width) / 2) - var(--quote-mark-offset-x));
+  /* when max-width is smaller than the viewport, this positions relative to center */
+}
+
+/* right mark is right of the quote text */
+.quote-right {
+  right: calc(50% - (var(--quote-max-width) / 2) - var(--quote-mark-offset-x));
+}
+
+/* Responsiveness: recalc for small screens to avoid overflowing marks */
+@media (max-width: 920px) {
+  :root{
+    --quote-mark-offset-x: 22px;
+    --quote-mark-size: 30px;
+    --quote-font-size: 16px;
+    --quote-max-width: 86vw;
+  }
+  .quote-left { left: calc((100% - var(--quote-max-width)) / 2 - var(--quote-mark-offset-x)); }
+  .quote-right { right: calc((100% - var(--quote-max-width)) / 2 - var(--quote-mark-offset-x)); }
+}
+
+@media (max-width: 560px) {
+  :root{
+    --quote-mark-offset-x: 14px;
+    --quote-mark-size: 22px;
+    --quote-font-size: 14px;
+    --quote-max-width: 92vw;
+  }
+  .quote-left { left: calc((100% - var(--quote-max-width)) / 2 - var(--quote-mark-offset-x)); }
+  .quote-right { right: calc((100% - var(--quote-max-width)) / 2 - var(--quote-mark-offset-x)); }
+}
+
+/* Optional: make the quote container pointer-friendly if you need links in the text */
+.quote-wrap * { pointer-events: auto; }
+.header-wrapper.hidden { visibility: hidden; }
+
+
+/* ---------- Learn block variables (tweak these) ---------- */
+:root {
+  /* size & layout */
+  --learn-max-width: 360px;
+  --learn-gutter-vertical: clamp(20px, 4vw, 40px);
+
+  /* icon */
+  --learn-icon-size: 100px;
+  --learn-icon-nudge-x: 0px;
+  --learn-icon-nudge-y: 0px;
+
+  /* text */
+  --learn-subtitle-color: #E3721A;
+  --learn-subtitle-size: 12px;
+  --learn-subtitle-letter-spacing: .05em;
+
+  --learn-title-size: 30px;
+  --learn-title-color: #434343;
+  --learn-title-weight: 700;
+
+  --learn-text-color: #434343;
+  --learn-text-size: 20px;
+  --learn-text-line-height: 1.6;
+  --learn-text-gap: 3px;
+
+  /* nudge whole block relative to quote */
+  --learn-nudge-x: -300px;
+  --learn-nudge-y: 630px; /* default small gap between quote and learn */
+  --learn-align: center; /* center / left / right */
+}
+
+/* ---------- Learn block styles ---------- */
+.learn-block {
+  width: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: var(--learn-gutter-vertical) 20px;
+  box-sizing: border-box;
+  transform: translate(var(--learn-nudge-x), var(--learn-nudge-y));
+}
+
+.learn-inner {
+  max-width: var(--learn-max-width);
+  width: 100%;
+  text-align: var(--learn-align);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+/* icon placeholder (leave src empty) */
+.learn-icon {
+  width: var(--learn-icon-size);
+  height: var(--learn-icon-size);
+  object-fit: contain;
+  display: block;
+  transform: translate(var(--learn-icon-nudge-x), var(--learn-icon-nudge-y));
+  pointer-events: none;
+  opacity: 0.98;
+  filter: invert(26%) sepia(2%) saturate(0%) hue-rotate(167deg) brightness(95%) contrast(90%);
+}
+
+/* subtitle */
+.learn-subtitle {
+  margin: 0;
+  font-size: var(--learn-subtitle-size);
+  letter-spacing: var(--learn-subtitle-letter-spacing);
+  color: var(--learn-subtitle-color);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* title */
+.learn-title {
+  margin: 4px 0 0;
+  font-size: var(--learn-title-size);
+  color: var(--learn-title-color);
+  font-weight: var(--learn-title-weight);
+  line-height: 1.05;
+  letter-spacing: .02em;
+}
+
+/* body copy */
+.learn-copy {
+  margin-top: 12px;
+  color: var(--learn-text-color);
+  font-size: var(--learn-text-size);
+  line-height: var(--learn-text-line-height);
+  display: flex;
+  flex-direction: column;
+  gap: var(--learn-text-gap);
+  text-align: var(--learn-align);
+}
+
+/* responsive tweaks */
+@media (max-width: 600px) {
+  :root{
+    --learn-max-width: 92vw;
+    --learn-icon-size: 52px;
+    --learn-title-size: 20px;
+    --learn-text-size: 14px;
+  }
+  .learn-inner { padding: 0 8px; }
+}
+
+/* small default separation if placed directly after quote */
+.quote-wrap + .learn-block {
+  margin-top: 6px;
+}
+
+/* ====== FOUNDATIONS SECTION ====== */
+:root {
+  /* layout */
+  --foundation-gap: 24px;
+  --foundation-columns: 3;
+  --foundation-card-height: 160px;
+  /* colors & overlay */
+  --foundation-overlay: rgba(63, 63, 63, 0.886);
+  --foundation-overlay-hover: rgba(0,0,0,0.45);
+  --foundation-text-color: #fff;
+  --foundation-title-color: #434343;
+
+  /* icon & label */
+  --foundation-icon2-size: 130px;
+  --foundation-icon-size: 40px;
+  --foundation-label-size: 14px;
+  --foundation-label-spacing: .05em;
+  --foundation-card-width: 260px;  
+  /* spacing / movement */
+  --foundation-nudge-y: 1000px;        /* vertical movement for whole section */
+  --foundation-nudge-x: 52px;         /* horizontal movement for whole section */
+
+  /* title-specific movement */
+  --foundation-title-nudge-x: -40px;   /* move title horizontally */
+  --foundation-title-nudge-y: -70px;   /* move title vertically */
+}
+
+/* wrapper (whole section) */
+.foundations {
+  width: 100%;
+  padding: clamp(32px, 5vw, 64px) 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+
+  /* move entire section (title + grid) */
+  transform: translate(
+    var(--foundation-nudge-x),
+    var(--foundation-nudge-y)
+  );
+}
+
+/* title */
+.foundations-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .06;
+  color: var(--foundation-title-color);
+  text-align: center;
+  margin: 0;
+
+  /* title movement */
+  transform: translate(
+    var(--foundation-title-nudge-x),
+    var(--foundation-title-nudge-y)
+  );
+}
+
+/* grid */
+.foundations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--foundation-card-width), var(--foundation-card-width)));
+  gap: var(--foundation-gap);
+  width: 100%;
+  max-width: 920px;
+}
+
+/* card */
+.foundation-card {
+  position: relative;
+  width: 100%;
+  height: var(--foundation-card-height);
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* image background (blank, set yourself later) */
+.foundation-img {
+  width: 100%;
+  height: 100%;
+  background-color: #999; /* fallback gray */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.85);
+}
+
+/* overlay */
+.foundation-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--foundation-overlay);
+  transition: background .15s ease;
+}
+
+/* content (icon + label) */
+.foundation-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--foundation-text-color);
+  text-align: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.foundation-icon {
+  width: var(--foundation-icon-size);
+  height: var(--foundation-icon-size);
+  object-fit: contain;
+  /* adjust this filter later for color tint */
+}
+.foundation-icon2 {
+  width: var(--foundation-icon2-size);
+  height: var(--foundation-icon2-size);
+  object-fit: contain;
+  /* adjust this filter later for color tint */
+}
+
+
+.foundation-label {
+  font-size: var(--foundation-label-size);
+  font-weight: 400;
+  letter-spacing: var(--foundation-label-spacing);
+  text-transform: uppercase;
+}
+
+/* hover state */
+.foundation-card:hover .foundation-overlay {
+  background: var(--foundation-overlay-hover);
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  :root { --foundation-columns: 2; --foundation-card-height: 140px; }
+}
+
+@media (max-width: 480px) {
+  :root { --foundation-columns: 1; --foundation-card-height: 130px; }
+}
+
+/* ================================
+   Foundations (alternate L-R layout)
+   Complete, self-contained CSS block
+   Paste this whole block into learn.css (it is namespaced under .foundations-alt)
+   to replace any earlier foundations CSS. Designed to avoid overlap and preserve spacing.
+   ================================ */
+
+/* -----------------------
+   Section-level variables (edit to control everything)
+   ----------------------- */
+/* ================================
+   Foundations — move media & body per-group
+   Paste this into learn.css (namespaced under .foundations-alt)
+   ================================ */
+
+.foundations-alt {
+  /* section-level vars (existing) */
+  --found-alt-max-width: 900px;
+  --found-alt-padding: clamp(28px, 6vw, 56px);
+  --found-alt-gap: 34px;
+  --found-alt-nudge-x: 0px;
+  --found-alt-nudge-y: 1200px;
+
+  /* group-specific sizing (defaults) */
+  --odd-media-size: 200px;
+  --even-media-size: 500px;
+
+  --odd-heading-size: 18px;
+  --even-heading-size: 18px;
+
+  --odd-desc-size: 14px;
+  --even-desc-size: 14px;
+
+  /* button colors */
+  --odd-btn-bg: #E3721A;
+  --even-btn-bg: #0078D7;
+  --odd-btn-color: #fff;
+  --even-btn-color: #fff;
+
+  /* media placeholder */
+
+
+  --found-btn-padding: 7px 12px;
+  --found-btn-gap: 10px;
+  --found-btn-font-size: 12px;
+  --found-btn-radius: 3px;
+
+  --found-desc-line-height: 1.6;
+  --found-heading-weight: 700;
+  --found-heading-color: #222;
+
+  --found-divider-color: rgba(28,27,26,0.12);
+  --found-divider-thickness: 1px;
+  --found-divider-gap: 34px;
+
+  --found-breakpoint-stack: 820px;
+}
+
+/* wrapper */
+.foundations-alt {
+  width: 100%;
+  padding: var(--found-alt-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--found-alt-gap);
+  box-sizing: border-box;
+  transform: translate(var(--found-alt-nudge-x), var(--found-alt-nudge-y));
+  font-family: inherit;
+}
+
+/* entry base */
+.foundations-alt .foundation-entry {
+  width: min(var(--found-alt-max-width), 96%);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  overflow: visible;
+  min-height: 120px;
+  /* per-entry horizontal nudge (still usable) */
+  transform: translateX(var(--entry-nudge-x, 0));
+  transition: transform .12s ease;
+}
+
+/* ----------------------------
+   ODD (1,3,5) — default: media left
+   ---------------------------- */
+.foundations-alt .foundation-entry:nth-of-type(odd) {
+  flex-direction: row;
+  text-align: left;
+}
+
+/* odd media box — apply odd-media nudges */
+.foundations-alt .foundation-entry:nth-of-type(odd) .foundation-media {
+  width: var(--odd-media-size);
+  height: var(--odd-media-size);
+  border-radius: var(--found-media-radius);
+  background: var(--found-media-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  /* movement controls for odd media */
+  --odd-media-nudge-x: 0px; /* defaults; override in :root or inline */
+  --odd-media-nudge-y: 0px;
+
+  transform: translate(var(--odd-media-nudge-x), var(--odd-media-nudge-y));
+  will-change: transform;
+}
+
+/* odd body — movement controls */
+.foundations-alt .foundation-entry:nth-of-type(odd) .foundation-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  --odd-body-nudge-x: 0px;
+  --odd-body-nudge-y: 0px;
+  transform: translate(var(--odd-body-nudge-x), var(--odd-body-nudge-y));
+  will-change: transform;
+}
+
+/* odd heading/desc/button styles */
+.foundations-alt .foundation-entry:nth-of-type(odd) .foundation-heading {
+  font-size: var(--odd-heading-size);
+  font-weight: var(--found-heading-weight);
+  color: var(--found-heading-color);
+  margin: 0;
+}
+.foundations-alt .foundation-entry:nth-of-type(odd) .foundation-desc {
+  font-size: var(--odd-desc-size);
+  line-height: var(--found-desc-line-height);
+  margin: 0;
+}
+.foundations-alt .foundation-entry:nth-of-type(odd) .foundation-btn {
+  background: var(--odd-btn-bg);
+  color: var(--odd-btn-color);
+  padding: var(--found-btn-padding);
+  font-size: var(--found-btn-font-size);
+  border-radius: var(--found-btn-radius);
+  border: none;
+  cursor: pointer;
+}
+
+/* ----------------------------
+   EVEN (2,4,6) — default: media right
+   ---------------------------- */
+.foundations-alt .foundation-entry:nth-of-type(even) {
+  flex-direction: row-reverse;
+  text-align: left;
+}
+
+/* even media box — movement controls for even media */
+.foundations-alt .foundation-entry:nth-of-type(even) .foundation-media {
+  width: var(--even-media-size);
+  height: var(--even-media-size);
+  border-radius: var(--found-media-radius);
+  background: var(--found-media-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  /* movement controls for even media */
+  --even-media-nudge-x: 0px;
+  --even-media-nudge-y: 0px;
+
+  transform: translate(var(--even-media-nudge-x), var(--even-media-nudge-y));
+  will-change: transform;
+}
+
+/* even body — movement controls */
+.foundations-alt .foundation-entry:nth-of-type(even) .foundation-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+
+  --even-body-nudge-x: 0px;
+  --even-body-nudge-y: 0px;
+
+  transform: translate(var(--even-body-nudge-x), var(--even-body-nudge-y));
+  will-change: transform;
+}
+
+/* even heading/desc/button styles */
+.foundations-alt .foundation-entry:nth-of-type(even) .foundation-heading {
+  font-size: var(--even-heading-size);
+  font-weight: var(--found-heading-weight);
+  color: var(--found-heading-color);
+  margin: 0;
+}
+.foundations-alt .foundation-entry:nth-of-type(even) .foundation-desc {
+  font-size: var(--even-desc-size);
+  line-height: var(--found-desc-line-height);
+  margin: 0;
+}
+.foundations-alt .foundation-entry:nth-of-type(even) .foundation-btn {
+  background: var(--even-btn-bg);
+  color: var(--even-btn-color);
+  padding: var(--found-btn-padding);
+  font-size: var(--found-btn-font-size);
+  border-radius: var(--found-btn-radius);
+  border: none;
+  cursor: pointer;
+}
+
+.foundations-alt .foundation-divider {
+  width: min(var(--found-alt-max-width), 96%);
+  height: var(--found-divider-thickness);
+  background: var(--found-divider-color);
+  margin: var(--found-divider-gap) 0;
+  flex-shrink: 0;
+}
+
+/* Buttons row (shared) */
+.foundations-alt .foundation-buttons {
+  display: flex;
+  gap: var(--found-btn-gap);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Ensure long words wrap and no overlap */
+.foundations-alt .foundation-body,
+.foundations-alt .foundation-desc {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Mobile stacking (respects nudges but stacks vertically) */
+@media (max-width: var(--found-breakpoint-stack)) {
+  .foundations-alt .foundation-entry,
+  .foundations-alt .foundation-entry:nth-of-type(odd),
+  .foundations-alt .foundation-entry:nth-of-type(even) {
+    flex-direction: column;
+    text-align: left;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .foundations-alt .foundation-entry .foundation-media {
+    width: calc(max(var(--odd-media-size, 0px), var(--even-media-size, 0px)) * 0.95);
+    height: calc(max(var(--odd-media-size, 0px), var(--even-media-size, 0px)) * 0.95);
+    transform: translate(0,0) !important; /* cancel horizontal nudges on tiny screens */
+  }
+
+  .foundations-alt .foundation-entry .foundation-body {
+    transform: translate(0,0) !important;
+  }
+
+  .foundations-alt .foundation-divider { width: 100%; }
+}
+
+/* quick usage examples (drop into CSS or inline on the section):
+   // Move odd media 20px right and 8px up:
+   .foundations-alt { --odd-media-nudge-x: 20px; --odd-media-nudge-y: -8px; }
+
+   // Move even body left by 16px:
+   .foundations-alt { --even-body-nudge-x: -16px; }
+
+   // Move whole section:
+   .foundations-alt { --found-alt-nudge-x: 30px; --found-alt-nudge-y: 12px; }
+
+   // Per-entry override (single entry nudging):
+   <div class="foundation-entry" style="--entry-nudge-x:24px">...</div>
+*/
+/* === media-size override & per-entry support ===
+   - Change --odd-media-size / --even-media-size globally
+   - Or set --entry-media-size on a single .foundation-entry to override that card
+*/
+.foundations-alt .foundation-entry .foundation-media {
+  /* prefer per-entry value, otherwise fallback to odd/even group value */
+  width:   var(--entry-media-size, auto);
+  height:  var(--entry-media-size, auto);
+  /* if --entry-media-size not set, we fallback to the group's vars below */
+  min-width: 48px;
+}
+
+/* apply group fallbacks (these selectors already exist in your file;
+   these are safe fallbacks that only apply when --entry-media-size is not set) */
+.foundations-alt .foundation-entry:nth-of-type(odd) .foundation-media {
+  width:  var(--odd-media-size, 110px);
+  height: var(--odd-media-size, 110px);
+}z
+.foundations-alt .foundation-entry:nth-of-type(even) .foundation-media {
+  width:  var(--even-media-size, 500px);
+  height: var(--even-media-size, 50 0px);
+}
+
+/* Example: ensure mobile doesn't overflow (optional, keep if you want) */
+@media (max-width: 820px) {
+  .foundations-alt .foundation-entry .foundation-media {
+    width: calc(min(140px, 90vw));
+    height: calc(min(140px, 90vw));
+  }
+}
+/* smooth native scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* give targets spacing so the fixed header doesn't cover them */
+#camera-basics, #compos, #angles, #lighting, #color, #focus 
+.foundations-alt .foundation-entry {
+  /* header is 64px tall — add a little extra (safe) */
+  scroll-margin-top: 84px; /* adjust if your header height changes */
+}
+
+/* If you used Option B (anchor inside div), make it fill the card: */
+.foundation-card .foundation-card-link,
+.foundation-card > a.foundation-card-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+/* ===============================
+   Hero (CSS-variable driven)
+   Edit vars in :root, .foundations-alt, or inline style
+   =============================== */
+
+/* Default variables — override these where you want (e.g. .foundations-alt) */
+:root{
+  /* layout */
+  --hero-max-width: 1200px;
+  --hero-padding: clamp(28px, 6vw, 40px);
+  --hero-gap: 34px;
+
+  /* nudges (edit these) */
+  --hero-title-nudge-x: 0px;
+  --hero-title-nudge-y: 0px;
+
+  --hero-body-nudge-x: 0px;
+  --hero-body-nudge-y: 0px;
+
+  --hero-yt-nudge-x: 0px;
+  --hero-yt-nudge-y: 0px;
+
+  /* youtube size */
+  --hero-yt-width: 495px;
+  --hero-yt-height: 270px;
+
+  /* visual */
+  --hero-live-bg: #ea1e07;
+  --hero-accent: #E3721A;
+  --hero-text-muted: rgba(255,255,255,0.9);
+  --hero-radius: 12px;
+}
+
+/* Container */
+.hero-section{
+  max-width: var(--hero-max-width);
+  margin: 28px auto;
+  padding: var(--hero-padding);
+  color: #fff;
+  background: transparent; /* page background already set */
+  font-family: "Gantari", system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Inner layout */
+.hero-inner{
+  display:flex;
+  align-items:flex-start;
+  gap: var(--hero-gap);
+}
+
+/* Left column */
+.hero-left{
+  width:46%;
+  min-width:260px;
+  position: relative;
+}
+
+/* LIVE pill */
+.live-pill{
+  display:inline-block;
+  background: var(--hero-live-bg);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:990px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+/* Title & BODY — transformations using CSS vars */
+.hero-title{
+  margin:0 0 12px 0;
+  font-size:34px;
+  line-height:1.05;
+  transform: translate(var(--hero-title-nudge-x), var(--hero-title-nudge-y));
+  transition: transform .12s linear;
+}
+
+.hero-body{
+  margin:0 0 18px 0;
+  color: var(--hero-text-muted);
+  max-width:440px;
+  font-weight: 300;
+  transform: translate(var(--hero-body-nudge-x), var(--hero-body-nudge-y));
+  transition: transform .12s linear;
+}
+
+/* CTAs */
+.hero-ctas{display:flex;align-items:center;gap:12px}
+.btn-primary{
+  background:var(--hero-accent);
+  color:#f2f2f2;
+  padding:10px 14px;
+  border-radius:2px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+}
+.hero-socials{display:inline-flex;gap:8px}
+.hero-socials a{
+  width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+  background: rgba(255,255,255,0.06); color:#fff; text-decoration:none;
+}
+
+/* Middle blank placeholder (keeps spacing) */
+.hero-blank{width:6%;min-width:40px}
+
+/* YouTube box on right — positioned/sized via vars */
+/* Use <a href=""> so link opens in new tab (no JS). Put embed or watch URL in href. */
+.hero-youtube{
+  display:block;
+  width: var(--hero-yt-width);
+  height: var(--hero-yt-height);
+  min-width:160px;
+  border-radius:10px;
+  overflow:hidden;
+  position: relative;
+  background: #000;
+  box-shadow:0 8px 30px rgba(0,0,0,0.45);
+  transform: translate(var(--hero-yt-nudge-x), var(--hero-yt-nudge-y));
+  transition: transform .12s linear, width .12s linear, height .12s linear;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* thumbnail look (blank to start) */
+.yt-thumb{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.yt-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+.play{
+  display:inline-flex;width:70px;height:70px;border-radius:50%;background:#fff;color:#000;align-items:center;justify-content:center;font-weight:800;font-size:28px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Accessibility: focus visible on link */
+.hero-youtube:focus{outline:3px solid rgba(243,156,18,0.22);outline-offset:3px}
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px){
+  .hero-inner{flex-direction:column;gap:18px}
+  .hero-left{width:100%}
+  .hero-blank{display:none}
+  .hero-youtube{width:100%;height:260px;transform: translate(0,0) /* mobile resets nudges — override if you want */ }
+}
+
+/* ------------------------------------------------------------------
+   EXAMPLE: override vars on .foundations-alt if you want quick control
+   Place this block in your stylesheet, then tweak the values.
+   ------------------------------------------------------------------ */
+/*
+.foundations-alt {
+  --hero-title-nudge-x: -20px;
+  --hero-title-nudge-y: 10px;
+  --hero-body-nudge-x: 0px;
+  --hero-body-nudge-y: 20px;
+  --hero-yt-nudge-x: 80px;
+  --hero-yt-nudge-y: 0px;
+  --hero-yt-width: 560px;
+  --hero-yt-height: 315px;
+}
+*/
+
+:root{
+  --hero-nudge-x: 0px;
+  --hero-nudge-y: 1500px;
+  --hero-scale: 1;
+  --hero-rotate: 0deg;
+  --hero-max-width: 1200px;
+  --hero-padding: clamp(28px, 6vw, 40px);
+  --hero-opacity: 1;
+}
+
+/* apply */
+.hero-section{
+  max-width: var(--hero-max-width);
+  padding: var(--hero-padding);
+  opacity: var(--hero-opacity);
+  transform: translate(var(--hero-nudge-x), var(--hero-nudge-y)) rotate(var(--hero-rotate));
+  transition: transform .12s linear, opacity .12s linear;
+}
+
+
+/* controllable video size + radius */
+:root{
+  /* default size & look (override these where you want) */
+  --hero-yt-width: 1000px;      /* width of the video box */
+  --hero-yt-height: 700px;     /* height (16:9 example) */
+  --hero-yt-radius: 18px;      /* corner radius */
+  --hero-yt-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+
+/* container — rounded + hides iframe overflow so radius is visible */
+.hero-youtube {
+  width: var(--hero-yt-width);
+  height: var(--hero-yt-height);
+  border-radius: var(--hero-yt-radius);
+  overflow: hidden;                 /* clip iframe to rounded corners */
+  box-shadow: var(--hero-yt-shadow);
+  background: #000;                 /* fallback background while loading */
+  display: block;
+  position: relative;
+  transition: width .15s ease, height .15s ease, border-radius .15s ease;
+}
+
+/* iframe fills container exactly */
+.hero-youtube iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  /* pointer-events: auto; keep interactive if you want clicks inside video */
+}
+
+/* optional: inner padding border effect (thin outline) */
+.hero-youtube::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(243,156,18,0.10); /* thin accent ring */
+}
+
+/* responsive fallback — full width on small screens */
+@media (max-width: 900px){
+  :root { --hero-yt-width: 100%; --hero-yt-height: 260px; } /* optionally override */
+  .hero-youtube{ width: 100%; height: var(--hero-yt-height); }
+}
+
+/* ---------- Variable-driven overrides for your current HTML ---------- */
+/* Put this at the BOTTOM of learn.css so it wins over earlier definitions */
+
+/* Safety defaults in case some vars are missing */
+:root {
+  --hero-body-nudge-y: 0px;    /* corrected name */
+  --hero-yt-nudge-x: 600px;
+  --hero-yt-nudge-y: -250px;
+  --hero-yt-width: 600px;
+  --hero-yt-height: 315px;
+  --hero-yt-radius: 12px;
+}
+
+/* Map the existing .video-bg element to the hero vars so your current HTML works */
+.video-bg {
+  /* allow variables to resize/position the video block */
+  width: var(--hero-yt-width);
+  height: var(--hero-yt-height);
+  border-radius: var(--hero-yt-radius);
+  overflow: hidden;
+  position: relative;
+  transform: translate(var(--hero-yt-nudge-x), var(--hero-yt-nudge-y));
+  box-shadow: var(--hero-yt-shadow, 0 8px 30px rgba(0,0,0,0.45));
+  background: #000;
+  transition: width .15s ease, height .15s ease, transform .12s linear, border-radius .12s linear;
+  z-index: 0; /* sits visually where you expect */
+}
+
+/* Make the iframe fill the container (keeps radius because container clips overflow) */
+.video-bg iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover; /* helps maintain cover-like behavior */
+  pointer-events: auto; /* allow interactions with the embedded player */
+}
+
+/* Keep the hero text moved if you want a body-specific nudge */
+.hero-body {
+  transform: translate(var(--hero-body-nudge-x, 0px), var(--hero-body-nudge-y, 0px));
+}
+
+/* Responsive safety — full-width on small screens */
+@media (max-width: 900px) {
+  .video-bg { width: 100% !important; height: var(--hero-yt-height-mobile, 260px) !important; border-radius: 12px !important; transform: translate(0,0) !important; }
+  .hero-inner { flex-direction: column !important; gap: 18px !important; }
+  .hero-left { width: 100% !important; }
+}
+
+/* CTA + small inline social tiles (matches your screenshots) */
+
+.hero-ctas{
+  display:flex;
+  align-items:center;
+  gap:18px;                /* space between CTA and the inline group */
+  margin-top:18px;
+}
+
+/* Main orange CTA */
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:#E3721A;      /* matches your --hero-accent */
+  color:#ffffff;
+  padding:10px 18px;
+  border-radius:8px;       /* slightly rounded */
+  text-decoration:none;
+  font-weight:800;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  box-shadow: 0 10px 20px rgba(227,114,26,0.14);
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+  font-size:13px;
+}
+
+/* press feedback */
+.btn-primary:active{ transform: translateY(1px); box-shadow: 0 6px 12px rgba(0,0,0,0.12); }
+.btn-primary:focus{ outline:3px solid rgba(227,114,26,0.14); outline-offset:3px; }
+
+/* inline group that contains the small text and the icons */
+.watch-inline{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  white-space:nowrap;
+}
+
+/* small label text (match small grey text) */
+.watch-text{
+  color: rgba(255,255,255,0.95);
+  font-size:13px;
+  opacity: .95;
+  margin-right:4px;
+}
+
+/* social tiles (rounded translucent squares) */
+.social-tile{
+  display:inline-flex;
+  width:34px;
+  height:34px;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  text-decoration:none;
+  padding:4px;
+}
+
+/* keep images empty and visible area centered (you'll set src later) */
+.social-tile img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  display:block;
+  filter: none; /* preserves your icon colours when you add them */
+}
+
+/* small responsive tweak */
+@media (max-width:560px){
+  .hero-ctas{ flex-direction:column; align-items:flex-start; gap:8px; }
+  .watch-inline{ margin-left:2px; }
+}

@@ -1,0 +1,1384 @@
+/* =========================
+   Base
+========================= */
+:root{
+  --ink: #434343;                 /* dark grey */
+  --text: #1c1b1a;
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.25);
+  --bio-quote-font-size: 5px;
+  /* Footer theme */
+  --footer-ink:#A1A1A1;
+  --footer-accent:#E3721A;
+  --bio-quote-max-w: 400px;      /* max width of the quote box */
+  --bio-quote-translate-x: 0px;  /* small fine-tune left/right (use negative for left) */
+  --bio-quote-translate-y: 0px;  /* small fine-tune up/down (use negative for up) */
+  /* About page theme */
+  --about-title-color: #cccccc;
+  --about-copy-color: #cccccc;
+  --about-accent-color: #E26900;
+  --about-bg-color: #FBE5CF;
+  --hero-title-nudge-x: 500px; /* + right, − left */
+  --hero-title-nudge-y: 70px; /* + down, − up */
+  --hero-copy-nudge-x: 500px;
+  --hero-copy-nudge-y: 100px;
+  --hero-nudge-x: 0px;
+  --hero-nudge-y: 0px;
+  --team-icon-placeholder-nudge-x: -120px;
+  --team-icon-placeholder-nudge-y: -325px;
+  --team-member-gap: 100px; /* change this value to increase / decrease spacing */
+  --full-bio-card1-nudge-x: 70px; /* + right, − left */
+  --full-bio-card1-nudge-y: 200px; /* + down, − up */
+  
+  --full-bio-card2-nudge-x: -100px; 
+  --full-bio-card2-nudge-y: 270px; 
+
+  --full-bio-card3-nudge-x: 330px; 
+  --full-bio-card3-nudge-y: 335px;
+}
+
+*{ box-sizing:border-box; }
+html, body{ height:100%; margin:0; overflow-x:hidden; }
+body{
+  font-family:"Gantari",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  /* Use the background color from the home page for a consistent base */
+  background:var(--about-bg-color); 
+}
+
+/* =========================
+   Header (transparent at top) - Copied from home.css
+========================= */
+.site-header{
+  position:sticky; top:0; z-index:20;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px;
+  height:64px;
+  background:transparent; border-bottom:none; box-shadow:none; backdrop-filter:none;
+  padding-left:clamp(12px, 2vw, 20px);
+  padding-right:clamp(12px, 2vw, 20px);
+  transition: background .3s ease, box-shadow .3s ease, backdrop-filter .3s ease;
+}
+
+/* Brand */
+.brand{
+  display:inline-flex; align-items:center; gap:1px;
+  color:var(--ink); text-decoration:none;
+}
+.brand__img{
+  width:60px; height:60px; display:block;
+  filter: invert(26%) sepia(2%) saturate(0%) hue-rotate(167deg) brightness(95%) contrast(90%);
+}
+.brand__text{ font-weight:700; letter-spacing:.150em; color:var(--ink); }
+
+/* Nav */
+.site-nav{ display:flex; justify-content:center; gap:32px; }
+.nav-link{
+  color:var(--ink); text-decoration:none;
+  font-weight:400; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  padding-bottom:8px; position:relative;
+  transition: color .2s ease, font-weight .15s ease, opacity .2s ease;
+}
+.nav-link:hover{ font-weight:600; }
+.nav-link.is-active{ font-weight:800; }
+.nav-link.is-active::after{
+  content:""; position:absolute; left:50%; bottom:0;
+  width:40px; height:2px; transform:translateX(-50%);
+  background:var(--ink);
+}
+
+/* Logout */
+.logout-btn{
+  display:inline-block; text-decoration:none;
+  background:#e3721a; color:#fff;
+  padding:10px 14px; border-radius:0;
+  font-weight:500; font-size:12px; letter-spacing:.12em;
+  box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+
+/* Header tint on micro-scroll (CSS-only) */
+@supports (animation-timeline: scroll()) {
+  @keyframes headerFade {
+    from { background:transparent; box-shadow:none; backdrop-filter:none; }
+    /* Use the same background tint as the home page header */
+    to   { background:var(--about-bg-color); backdrop-filter:blur(12px); box-shadow:var(--shadow-lg); }
+  }
+  .site-header{
+    animation: headerFade linear;
+    animation-timeline: scroll();
+    animation-fill-mode: both;
+    animation-range: 1px 80px;
+  }
+}
+
+/* =========================
+   Full-page artwork
+========================= */
+.page{
+  position:relative;
+  /* About page should be taller to accommodate content */
+  min-height:2800px; /* Adjusted minimum height */
+  overflow:hidden;
+}
+.page-bg{
+  width:100%; height:auto; display:block;
+  user-select:none; -webkit-user-drag:none;
+  /* Match the background scaling behavior of the home page */
+
+}
+.about-page .page-bg {
+    /* Set a minimum height to ensure the background covers all positioned content */
+    min-height: 2800px; /* Needs to be as tall as the content container */
+}
+
+/* =========================
+   About Hero (KNOW MORE ABOUT US)
+========================= */
+.about-hero-callout {
+  position: absolute;
+  top: calc(clamp(120px, 15vw, 150px) + var(--hero-nudge-y));
+  left: calc(50% + var(--hero-nudge-x));
+  transform: translateX(-50%);
+  width: min(1100px, 92vw);
+  z-index: 5;
+  text-align: right;
+  padding-right: clamp(20px, 4vw, 50px);
+}
+
+
+.about-hero-title {
+  margin: 0 0 10px 0;
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  font-size: clamp(20px, 5.5vw, 65px);
+  color: #fff;
+  text-shadow: 0 4px 12px rgba(0,0,0,.3);
+  text-align: left;
+  max-width: 500px;
+  position: relative;
+  top: var(--hero-title-nudge-y);
+  left: var(--hero-title-nudge-x);
+}
+
+
+.about-hero-copy {
+  margin: 8px 0 0 0;
+  font-weight: 400;
+  font-size: clamp(16px, 1.8vw, 20px);
+  line-height: 1.5;
+  color: #fff;
+  max-width: 550px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.2);
+  position: relative;
+  top: var(--hero-copy-nudge-y);
+  left: var(--hero-copy-nudge-x);
+  text-align: right; /* You can change this to right or center if needed */
+}
+
+
+.team-icon-placeholder {
+    position: absolute;
+    width: clamp(730px, 22vw, 300px);
+    height: clamp(730px, 11vw, 300px);
+    /* For the actual icon, replace with an image or SVG */
+    background: url('images/know.png') no-repeat center/contain; 
+    transform: translate(var(--team-icon-placeholder-nudge-x), var(--team-icon-placeholder-nudge-y));
+    padding: none;
+}
+
+/* =========================
+   Vision and Team (Two Columns)
+========================= */
+.vision-and-team{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    top: clamp(650px, 75vw, 850px); /* Adjusted top position */
+    width:min(1100px, 92vw);
+    z-index:4;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 5vw, 80px);
+    color:var(--about-copy-color);
+}
+
+.section-title{
+    font-weight:800;
+    font-size:clamp(24px, 3.2vw, 40px);
+    line-height:1.2;
+    margin:0 0 20px 0;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--about-title-color);
+    text-align: right;
+
+}
+.section-title1{
+    font-weight:800;
+    font-size:clamp(24px, 3.2vw, 40px);
+    line-height:1.2;
+    margin:0 0 20px 0;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--about-title-color);
+    text-align: left;
+
+}
+
+.section-copy{
+    font-weight:300;
+    font-size:clamp(16px, 1.4vw, 20px);
+    line-height:1.6;
+    margin:0;
+    color:var(--about-copy-color);
+    text-align: right;
+}
+
+/* Mission section within Vision column */
+/* --- FIX: Adjust margin to push it down correctly --- */
+.our-mission-title {
+    margin-top: clamp(40px, 5vw, 80px); /* Space above Our Mission title */
+}
+.our-mission-copy {
+    margin-bottom: clamp(40px, 5vw, 80px); /* Space below Our Mission copy */
+}
+
+
+/* Team Column Styles */
+.team-col{
+    /* Aligns the team column visually in the center */
+    padding-left: clamp(10px, 2vw, 20px); 
+    border-left: 1px solid rgba(0,0,0,0.1);
+}
+.vision-col {
+    padding-right: clamp(10px, 2vw, 20px); 
+}
+
+.team-member{
+    display:flex;
+    align-items:flex-start;
+    gap:clamp(10px, 2vw, 20px);
+    margin-bottom: var(--team-member-gap);
+}
+
+.member-photo{
+    width:clamp(80px, 6vw, 100px);
+    height:clamp(80px, 6vw, 100px);
+    border-radius:50%;
+    flex-shrink:0;
+    /* Placeholder for images not in background */
+    background-size:cover;
+    background-position:center;
+}
+/* Individual placeholders based on background crop */
+.placeholder-louise { background-image: url('images/louisse.png'); width: 100px; height: 100px; }
+.placeholder-juan { background-image: url('images/juan.png'); width: 100px; height: 100px; }
+.placeholder-daniel { background-image: url('images/daniel.png'); width: 100px; height: 100px;}
+
+
+.member-name{
+    margin:0;
+    font-weight:600;
+    font-size:clamp(16px, 1.2vw, 18px);
+    color:var(--about-title-color);
+    display: flex; /* Allow name and role to be on the same line if space permits */
+    align-items: baseline;
+    flex-wrap: wrap; /* Allow wrapping if space is tight */
+}
+
+/* --- FIX: Style for the role inside the name p-tag --- */
+.member-role {
+    font-weight: 300;
+    font-size: clamp(12px, 0.9vw, 14px);
+    color: var(--about-accent-color); /* Matches mockup color */
+    margin-left: 8px; /* Space between name and role */
+    white-space: nowrap; /* Keep role on one line */
+    /* If the role is on a new line when wrapping, reduce top margin */
+    margin-top: 2px; 
+}
+
+
+.member-desc{
+    margin:6px 0 8px;
+    font-weight:300;
+    font-size:clamp(12px, 0.9vw, 14px);
+    line-height:1.4;
+    color:var(--about-copy-color);
+}
+
+.member-link {
+  background: #E26900;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  min-width: 92px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* =========================
+   Who Are We? / Why We Created Oh Snap? (Two Side-by-Side Blocks)
+========================= */
+.who-and-why{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    top: clamp(1250px, 138vw, 1750px); /* Adjusted top position */
+    width:min(1100px, 92vw);
+    z-index:4;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 5vw, 80px);
+    color:var(--about-copy-color);
+    text-align:center;
+}
+
+.block-title{
+    font-weight:800;
+    font-size:clamp(20px, 2.5vw, 32px);
+    line-height:1.2;
+    margin:0 0 10px 0;
+    color:var(--about-title-color);
+}
+.block-copy{
+    font-weight:300;
+    font-size:clamp(15px, 1.2vw, 18px);
+    line-height:1.6;
+    margin:0 auto;
+    color:var(--about-copy-color);
+    max-width:450px;
+}
+
+/* =========================
+   Full Team Bios (Bottom Section)
+========================= */
+.full-bios{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    top: clamp(1400px, 160vw, 2150px); /* Adjusted to fit below the image/dividers */
+    width:min(1100px, 92vw);
+    z-index:4;
+    display:flex;
+    flex-direction:column;
+    gap: 30px;
+    padding-top: 30px; /* Space from the content above */
+}
+
+.full-bio-card{
+    display:grid;
+    grid-template-columns: 1fr 1.3fr;
+    align-items:center;
+    background:transparent;
+    padding: clamp(20px, 4vw, 40px);
+    /* Set max width to match the mockup width for each card visually */
+    max-width: 900px;
+    margin: 0 auto;
+}
+/* Adjust layout for the second card (Juan Cruz) to swap sides */
+.full-bio-card:nth-child(2) {
+    grid-template-columns: 1.3fr 1fr;
+    /* Pushes this card to the left as in the mockup */
+    margin: 0 auto 0 0; 
+}
+.full-bio-card:nth-child(2) .bio-text-content {
+    /* Moves the text content to the left column */
+    order: -1; 
+}
+.full-bio-card:nth-child(3) {
+    /* Pushes this card to the right as in the mockup */
+    margin: 0 0 0 auto;
+}
+
+
+.bio-text-content{
+    padding: clamp(10px, 2vw, 20px);
+}
+
+.bio-quote{
+    /* === CORE CENTERING / LAYOUT FROM YOUR CODE === */
+    display: flex;
+    justify-content: center;    /* Horizontal center */
+    align-items: center;        /* Vertical center */
+    text-align: center; 
+    background-color: #E26900;
+    padding: 25px 30px;         /* Keeps your original box size */
+    border-radius: 3px;
+    
+    /* === CRITICAL FIXES FOR VISIBILITY AND STYLE === */
+    color: #fff !important;         /* FIX: Text must be white on orange background */
+    font-style: normal !important;  /* FIX: Not italic, as per mockup */
+    font-weight: 700 !important;    /* FIX: Make it bold for emphasis */
+    
+    /* Keeping your size, but overriding font-weight/style above */
+    font-size: clamp(10px, 1.5vw, 20px); 
+    line-height: 1.4;
+    
+    margin:0 0 15px 0;
+    position:relative; /* Keep relative for container positioning */
+}
+.bio-quote::before, .bio-quote::after {
+    /* REMOVE: position: absolute; and related positioning (top, left, etc.) */
+    
+    /* === FIX: Make quotes inline and match text color/weight === */
+    content: "“";
+    font-style: normal !important;
+    font-weight: 700 !important;     /* Match the bold text */
+    color: #fff !important;          /* Make the quotes white */
+    display: inline-block;
+    
+    /* Style and spacing adjustments */
+    font-size: 1.8em;                /* Larger than the text */
+    line-height: 0;                  /* Helps align vertically */
+    margin: 0 10px;                  /* Add spacing between quote mark and text */
+}
+
+/* Update the closing quote mark and remove any absolute positioning overrides */
+.bio-quote::after {
+    content: "”";
+    margin-right: 0;
+}
+.full-bio-card:not(.is-left-image) .bio-quote::before {
+    top: 5px;
+    left: -20px;
+}
+.full-bio-card:not(.is-left-image) .bio-quote::after {
+    bottom: 5px;
+    right: -20px;
+}
+.is-left-image .bio-quote::before {
+    top: 5px;
+    left: -20px;
+}
+.is-left-image .bio-quote::after {
+    bottom: 5px;
+    right: -20px;
+}
+
+
+.bio-details{
+    margin-top:10px;
+    color: #434343;
+}
+
+.bio-name{
+    color: #434343;
+    font-weight:700;
+    font-size:clamp(50px, 2.5vw, 30px);
+    margin:0 0 5px 0;
+    text-transform:uppercase;
+}
+
+.bio-title{
+    font-weight:400;
+    font-size:clamp(16px, 1.2vw, 20px);
+    margin:0 0 10px 0;
+    color: var(--about-accent-color);
+}
+
+.bio-description{
+    font-weight:300;
+    font-size:clamp(14px, 1vw, 16px);
+    line-height:1.5;
+    margin:0 0 10px 0;
+    max-width:400px;
+    color: #434343;
+}
+
+.bio-dob{
+    font-weight:300;
+    font-size:clamp(12px, 0.9vw, 14px);
+    margin:0;
+    color: #434343;
+}
+.bio-dob strong{
+    font-weight:600;
+    color: #434343;
+}
+
+/* Responsive adjustments for Bios */
+@media (max-width:900px){
+    .full-bio-card{
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .full-bio-card:nth-child(2), .full-bio-card:nth-child(3) {
+        grid-template-columns: 1fr;
+        margin: 0 auto;
+    }
+    .full-bio-card .bio-text-content {
+        order: 1; /* Text content always below image (in background) */
+        text-align: center;
+    }
+    .bio-description, .bio-dob {
+        text-align: left;
+        max-width: none;
+    }
+    .bio-quote::before, .bio-quote::after {
+        display: none; /* Hide quotes on small screens */
+    }
+    .bio-quote { text-align: center; }
+}
+
+
+/* Responsive adjustments for main content */
+@media (max-width:820px){
+    .vision-and-team{ grid-template-columns:1fr; gap:30px; }
+    .team-col{ border-left: none; padding-left: 0; padding-top: 20px; }
+    .vision-col { padding-right: 0; }
+    .who-and-why{ grid-template-columns:1fr; gap:30px; top: 1300px; }
+    .about-hero-callout { text-align: center; padding-right: 0; }
+    .about-hero-copy { margin-left: auto; margin-right: auto; }
+    .team-icon-placeholder { display: none; } /* Hide icon on mobile */
+}
+
+/* =========================================================
+   FOOTER — Copied exactly from home.css (no changes needed)
+========================================================= */
+
+.footer-band{
+  background:#1B0D09;
+  position:relative;
+  padding:36px 0 24px;
+  padding-bottom: 5px;
+}
+
+/* container */
+.site-footer{ position:relative; background:transparent; color:var(--footer-ink); }
+
+/* layout */
+/* Replace the existing .footer-inner block */
+.footer-inner{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 1.05fr 0.9fr 1.05fr 1.25fr;
+  column-gap:clamp(22px, 5vw, 64px);
+  align-items:start;
+  line-height:1.55;
+  /* FIX: Use consistent side padding on the inner container */
+  padding-left: clamp(20px, 4vw, 40px);
+  padding-right: clamp(20px, 4vw, 40px);
+}
+
+/* reset letter spacing globally inside footer; only wordmark retains tracking */
+.footer-inner, .footer-inner *{ letter-spacing:0; }
+.footer-wordmark{ letter-spacing:.14em; }
+
+/* headings */
+.footer-h{
+  margin:0 0 8px;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.05;
+  color:#E6E0DC;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+/* brand block: mark left, stacked wordmark+tagline on right, vertically centered */
+.footer-col.footer-brand {
+    /* This column is slightly special because of the brandlockup overrides below. */
+    /* It needs minimal internal padding to match the ref's whitespace. */
+    padding-bottom: 0px; 
+}
+
+.brandlockup{
+  display:flex;
+  align-items:center;       /* vertical center of mark + text */
+  gap:10px;                 /* tight gap, matches reference */
+  margin-bottom:6px;
+}
+
+/* circular mark */
+.footer-mark{
+  width:60px; height:60px; object-fit:contain; display:block;
+  flex:0 0 60px;
+  margin:0;
+}
+
+/* grouped text for precise control */
+.footer-brand-text{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* wordmark */
+.footer-wordmark{
+  font-weight:700;
+  font-size:40px;
+  color:#E6E0DC;
+  display:block;
+  line-height:1;
+  margin:0;
+}
+
+/* tagline: smaller, light, constrained width so it wraps nicely */
+.footer-tagline{
+  margin:6px 0 0;
+  font-size:13px;
+  color:var(--footer-ink);
+  font-weight:300;
+  line-height:1.28;
+  max-width:210px;  /* tuned to closely match reference width */
+}
+
+/* Quick links */
+.footer-list{ list-style:none; margin:0; padding:0; }
+.footer-list li+li{ margin-top:8px; }
+.footer-list a{ color:var(--footer-ink); text-decoration:none; font-size:14px; display:inline-block; }
+.footer-list a:hover{ opacity:.85; }
+
+/* Explore */
+.footer-explore .footer-note{
+  margin:0 0 8px;
+  white-space:nowrap;
+  color:var(--footer-ink);
+  font-size:14px;
+}
+
+/* CONNECT block: ensure header and paragraph match visually by constraining both
+   to the same max-width (keeps the paragraph from exceeding the header width). */
+.footer-connect{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note {
+  max-width:210px;   /* match .footer-tagline width for unified visual rhythm */
+}
+
+/* connect note */
+.footer-connect-note{
+  margin:6px 0 12px;
+  color:var(--footer-ink);
+  font-size:14px;
+  line-height:1.35;
+  white-space:normal;
+  word-wrap:break-word;
+}
+
+/* social icons */
+.footer-social {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 100px !important; /* <- change this value to whatever spacing you want */
+  margin: 6px 0 10px !important;
+}
+
+.footer-social .soc {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain !important;   /* crop/expose actual icon area consistently */
+  vertical-align: middle !important;
+  margin: 0 !important;             /* ensure gap controls spacing, not icon margins */
+}
+
+/* search */
+.footer-search{ display:flex; align-items:center; gap:8px; }
+.footer-search input{
+  width:170px; height:28px;
+  padding:0 10px; border:0; outline:0;
+  background:#fff; color:#1c1b1a; font-size:13px;
+  border-radius:2px;
+
+}
+.footer-search button{
+  height:28px; padding:0 12px; border:0; cursor:pointer;
+  background:var(--footer-accent); color:#fff; font-size:12px; font-weight:400;
+  border-radius:2px;
+    font-weight: 400;
+}
+
+/* More button */
+.footer-more{
+  display:inline-block; padding:8px 16px; font-size:13px; font-weight:700;
+  text-decoration:none; background:var(--footer-accent); color:#fff;
+  border-radius:2px;
+}
+
+/* subtle dividing rule */
+.footer-rule{
+  width:min(1100px,92vw);
+  margin:22px auto 0;
+  height:1px; border:0; background:rgba(255,255,255,.12);
+}
+
+/* copyright centered horizontally and vertically (flex) with consistent padding */
+.footer-copy{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  text-align:center;
+  font-size:11px;
+  color:var(--footer-ink);
+  padding:14px 12px 28px;
+  font-weight:300;
+  opacity:0.55;
+  display:flex;
+  align-items:center;       /* vertical centering inside the padded area */
+  justify-content:center;
+  line-height:1.45;
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .footer-inner{ grid-template-columns:1fr 1fr; row-gap:28px; }
+  .footer-copy{ padding-bottom:22px; }
+}
+@media (max-width:560px){
+  .footer-inner{ grid-template-columns:1fr; }
+  .footer-wordmark{ font-size:40px; }
+  .footer-mark{ width:48px; height:48px; flex:0 0 48px; }
+  .footer-tagline{ max-width:180px; font-size:13px; }
+  .footer-connect .footer-h,
+  .footer-connect .footer-connect-note { max-width:100%; }
+}
+
+/* =========================================================
+   Final footer fixes (Overrides from home.css)
+========================================================= */
+
+/* === Forceable independent nudge controls for footer mark/word/tagline ===
+   Copied at THE VERY END so it wins over older rules. */
+
+:root{
+  --footer-mark-nudge-x: -10px;   /* positive -> right, negative -> left */
+  --footer-mark-nudge-y: -5px;   /* positive -> down, negative -> up */
+
+  --footer-word-nudge-x: -13px;
+  --footer-word-nudge-y: 0px;
+
+  --footer-tagline-nudge-x: 0px;
+  --footer-tagline-nudge-y: 0px;
+}
+
+/* Highly specific selectors and !important to override previous rules */
+.footer-band .footer-inner .footer-brand .brandlockup .footer-mark,
+.footer-band .footer-inner .brandlockup .footer-mark {
+  position: relative !important;
+  transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y)) !important;
+  will-change: transform !important;
+  /* keep size specified so nothing jumps */
+  width: 46px !important;
+  height: 46px !important;
+}
+
+/* wordmark (text) */
+.footer-band .footer-inner .footer-brand .footer-wordmark,
+.footer-band .footer-inner .brandlockup .footer-wordmark {
+  position: relative !important;
+  transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y)) !important;
+  display: inline-block !important;
+  font-size: 33px !important; /* Ensure size consistency */
+}
+
+/* tagline */
+.footer-band .footer-inner .footer-brand .footer-tagline,
+.footer-band .footer-inner .footer-tagline {
+  position: relative !important;
+  transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y)) !important;
+  display: block !important;
+  font-size: 14.2px !important;
+}
+
+/* Align search and connect widths to match visual reference */
+.footer-explore .footer-note{
+  max-width:220px !important;
+  white-space:normal !important;
+}
+.footer-search input{ width:150px !important; }
+
+.footer-connect .footer-h,
+.footer-connect .footer-connect-note,
+.footer-connect .footer-social { max-width: 190px !important; }
+
+/* compact social icon size */
+.footer-social{ gap:20px !important; margin:6px 0 10px !important; }
+.soc{ width:25px !important; height:25px !important; object-fit:contain !important; }
+
+/* Copyright wrap & centering */
+.footer-rule{
+ /* 1. Set a percentage width to make it shorter than the full container */
+   width: 75%; /* You can adjust this value (e.g., 60%, 40%) */
+ /* 2. Center the block horizontally */
+  margin: 18px auto 0; /* 'auto' centers it */ 
+   height:1px;
+  border:0;
+  background:rgba(255,255,255,.12);
+}
+.footer-copy{
+  width: min(900px, 92vw) !important;
+  max-width: 740px !important;
+  margin: 0 auto !important;
+  padding: 8px 12px 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  font-size: 11px !important;
+  color: var(--footer-ink) !important;
+  line-height: 1.45 !important;
+  opacity: 0.55 !important;
+  font-weight: 300 !important;
+  white-space: normal !important;
+  min-height: 46px !important;
+}
+.footer-copy {
+  margin-top: 5px !important;
+}
+
+/* Turn all footer text gray, except OhSnap wordmark + logo */
+.site-footer {
+  color: #A1A1A1;
+}
+
+.site-footer * {
+  color: #A1A1A1;
+}
+
+/* Keep the OhSnap brand text and logo in their original colors */
+.footer-wordmark,
+.footer-mark {
+  color: #fff !important;
+  filter: none !important;
+}
+
+/* Optional: If your logo image is being affected by color filters elsewhere */
+.footer-mark {
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* Make sure headings and links also use gray */
+.footer-h,
+.footer-list a,
+.footer-note,
+.footer-connect-note,
+.footer-copy,
+.footer-tagline {
+  color: #A1A1A1 !important;
+}
+
+/* Restore orange "More" button (do NOT make it #A1A1A1) */
+/* Put this at the VERY END of home.css so it overrides earlier footer color rules */
+.footer-more {
+  background: var(--footer-accent) !important; /* orange bg */
+  color: #fff !important;                      /* white label (keeps good contrast) */
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18) !important;
+  padding: 8px 16px !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  border-radius: 4px !important;
+}
+
+/* Ensure any nested elements inside the button also stay white */
+.footer-more, .footer-more * {
+  color: #fff !important;
+}
+
+/* If your global rule uses !important on .site-footer * color, add a stronger selector */
+.footer-band .site-footer .footer-more,
+.footer-band .site-footer .footer-more * {
+  color: #fff !important;
+  background: var(--footer-accent) !important;
+}
+/* ensure brand block is predictable */
+.brandlockup { position: relative; display:flex; align-items:flex-start; gap:12px; }
+
+/* move the circular mark independently */
+.footer-mark {
+  position: relative;               /* keep it in flow but allow offsets via transform */
+  transform: translate(var(--footer-mark-nudge-x), var(--footer-mark-nudge-y));
+  will-change: transform;
+  /* keep sizing consistent with your CSS — override sizes below if you changed them earlier */
+  width: 46px;
+  height: 46px;
+}
+
+/* move the wordmark independently (the text "OhSnap") */
+.footer-wordmark {
+  position: relative;
+  transform: translate(var(--footer-word-nudge-x), var(--footer-word-nudge-y));
+  display: inline-block; /* so transform works predictably */
+}
+
+/* move the tagline separately if you like */
+.footer-tagline {
+  position: relative;
+  transform: translate(var(--footer-tagline-nudge-x), var(--footer-tagline-nudge-y));
+  display: block;
+}
+
+/* Responsive tweaks for footer brand */
+@media (max-width:560px){
+  .brandlockup{ gap:10px !important; }
+  .footer-mark{ width:48px; height:48px; transform: translateY(2px) !important; }
+  .footer-wordmark{ font-size:20px; margin-top:6px; }
+  .footer-tagline{ max-width:100%; font-size:13px; }
+  .footer-connect .footer-h,
+  .footer-connect .footer-connect-note,
+  .footer-connect .footer-social { max-width:100% !important; }
+  .footer-search input{ width:170px !important; }
+  .footer-copy{ max-width:92vw !important; padding-bottom:16px !important; min-height:auto !important; }
+}
+
+.vision-and-team::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  opacity: 25%;
+  width: 0.5px;
+  background: rgb(255, 255, 255);
+  transform: translateX(-50%);
+}
+/* Remove the old dark column border(s) but keep the ::before divider */
+.team-col {
+  border-left: none !important; /* removes the dark line you don't want */
+}
+
+/* also remove any accidental right-border on the left column */
+.vision-col {
+  border-right: none !important;
+}
+
+/* leave this alone — it's your new white divider */
+/* .vision-and-team::before { ... } */
+/* === Stack & center the "Who Are We?" / "Why We Created Oh Snap?" blocks ===
+   Put this at the end of about.css to override previous rules */
+.who-and-why {
+  /* Force single column layout and center items */
+  display: grid !important;
+  grid-template-columns: 1fr !important; /* single column on all widths */
+  justify-items: center;                  /* center each block horizontally */
+  gap: clamp(50px, 5vw, 56px) !important; /* spacing between stacked blocks */
+  left: 50%;
+  transform: translateX(-50%);
+  /* optionally tweak vertical position if needed */
+  top: clamp(1800px, 130vw, 1500px) !important;
+  text-align: center;
+}
+
+/* allow block copy to be wider when centered */
+.who-and-why .block-copy {
+  max-width: 760px;    /* wider readable measure when centered */
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* make the titles centered and slightly larger if desired */
+.who-and-why .block-title {
+  text-align: center;
+  font-size: clamp(22px, 2.8vw, 34px);
+}
+.full-bios .full-bio-card:nth-child(1),
+.full-bio-card1 {
+    /* Base style for Card 1 (Louisse) */
+    grid-template-columns: 1fr 1.3fr !important;
+    margin: 0 0 0 auto !important; /* Push right */
+    max-width: 900px !important;
+    
+    /* === NUDGE IMPLEMENTATION === */
+    position: relative; /* Required for transform to work correctly */
+    transform: translate(var(--full-bio-card1-nudge-x), var(--full-bio-card1-nudge-y)) !important;
+    will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(1) .bio-image,
+.full-bio-card1 .bio-image { order: 1 !important; }
+.full-bios .full-bio-card:nth-child(1) .bio-text-content,
+.full-bio-card1 .bio-text-content { order: 2 !important; }
+
+/* Card 2: Juan Cruz (Image Right, Text Left) */
+.full-bios .full-bio-card:nth-child(2),
+.full-bio-card2 {
+    /* Base style for Card 2 (Juan) */
+    grid-template-columns: 1.3fr 1fr !important;
+    margin: 0 auto 0 0 !important; /* Push left */
+    max-width: 900px !important;
+
+    /* === NUDGE IMPLEMENTATION === */
+    position: relative; /* Required for transform to work correctly */
+    transform: translate(var(--full-bio-card2-nudge-x), var(--full-bio-card2-nudge-y)) !important;
+    will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(2) .bio-image,
+.full-bio-card2 .bio-image { order: 2 !important; }
+.full-bios .full-bio-card:nth-child(2) .bio-text-content,
+.full-bio-card2 .bio-text-content { order: 1 !important; }
+
+/* Card 3: Daniel (Image Left, Text Right) */
+.full-bios .full-bio-card:nth-child(3),
+.full-bio-card3 {
+    /* Base style for Card 3 (Daniel) */
+    grid-template-columns: 1fr 1.3fr !important;
+    margin: 0 0 0 auto !important; /* Push right */
+    max-width: 900px !important;
+
+    /* === NUDGE IMPLEMENTATION === */
+    position: relative; /* Required for transform to work correctly */
+    transform: translate(var(--full-bio-card3-nudge-x), var(--full-bio-card3-nudge-y)) !important;
+    will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(3) .bio-image,
+.full-bio-card3 .bio-image { order: 1 !important; }
+.full-bios .full-bio-card:nth-child(3) .bio-text-content,
+.full-bio-card3 .bio-text-content { order: 2 !important; }
+
+/* Ensure mobile stacking remains consistent and nudges are reset or minimal */
+@media (max-width:900px) {
+    .full-bio-card1, .full-bio-card2, .full-bio-card3 {
+        grid-template-columns: 1fr !important;
+        margin: 0 auto !important; /* Center on mobile */
+        transform: translate(0, 0) !important; /* Reset nudging on mobile */
+    }
+    .full-bio-card1 .bio-text-content,
+    .full-bio-card2 .bio-text-content,
+    .full-bio-card3 .bio-text-content {
+        order: 2 !important; /* Text below image */
+        text-align: left !important;
+    }
+}
+
+/* === Quote color + quotation marks update ===
+   Append to the end of about.css */
+.full-bios .bio-quote,
+.full-bios .full-bio-card .bio-quote,
+.full-bios .full-bio-card1 .bio-quote,
+.full-bios .full-bio-card2 .bio-quote,
+.full-bios .full-bio-card3 .bio-quote {
+  color: #ffffff !important;       /* white text inside orange box */
+  font-weight: 400 !important;     /* regular weight as requested */
+  position: relative !important;   /* for pseudo element placement */
+}
+
+/* Grey quotation marks as decorative pseudo-elements */
+.full-bios .bio-quote::before,
+.full-bios .bio-quote::after {
+  color: #9e9e9e;                  /* grey quotation marks */
+  font-weight: 700;
+  font-size: 1.6em;
+  line-height: 1;
+  position: absolute;
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* left opening quote */
+.full-bios .bio-quote::before {
+  content: "“";
+  left: -14px;
+  top: -8px;
+  transform: translateY(0);
+}
+
+/* right closing quote */
+.full-bios .bio-quote::after {
+  content: "”";
+  right: -14px;
+  bottom: -8px;
+  transform: translateY(0);
+}
+
+/* On narrow screens hide large decorative quotes so they don't overlap */
+@media (max-width: 820px) {
+  .full-bios .bio-quote::before,
+  .full-bios .bio-quote::after {
+    display: none !important;
+  }
+}
+/* =========================
+   Uniform quote-box (fixed size, 2-line clamp)
+   ONLY rules below touch quote appearance/behavior
+========================= */
+
+/* tweak these to taste */
+:root{
+  --bio-quote-box-w: 560px;     /* fixed box width for all quotes */
+  --bio-quote-padding-y: 12px;  /* vertical padding */
+  --bio-quote-padding-x: 26px;  /* horizontal padding (keeps room for glyphs) */
+  --bio-quote-line-height: 1.35;/* used to compute height for two lines */
+  --bio-quote-font-min: 12px;   /* min font size for quote text */
+  --bio-quote-font-max: 16px;   /* max font size for quote text */
+  --bio-quote-quote-size: 1.2em;/* size of the grey quote glyphs */
+}
+
+/* base quote box — same for every card */
+.full-bios .bio-quote {
+  position: absolute !important;         /* keep your layout placement logic */
+  width: var(--bio-quote-box-w) !important;
+  /* height calculated for exactly 2 lines: (line-height * 2 * 1em) + vertical padding */
+  height: calc( (2 * var(--bio-quote-line-height) * 1em) + (2 * var(--bio-quote-padding-y)) );
+  padding: var(--bio-quote-padding-y) var(--bio-quote-padding-x);
+  border-radius: 5px !important;        /* requested radius */
+  background: #E26900 !important;
+  color: #ffffff !important;             /* white text */
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: var(--bio-quote-line-height) !important;
+  font-size: clamp(var(--bio-quote-font-min), 1.2vw, var(--bio-quote-font-max)) !important;
+  display: -webkit-box !important;       /* for line-clamp */
+  -webkit-line-clamp: 2 !important;      /* FORCE 2 lines */
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important;
+  z-index: 10 !important;
+  /* make room inside the box so the glyphs don't overlap the quote text */
+  padding-left: calc(var(--bio-quote-padding-x) + 28px) !important;
+  padding-right: calc(var(--bio-quote-padding-x) + 28px) !important;
+  word-break: break-word !important;
+}
+
+/* keep glyphs inside the box (not outside) and grey */
+.full-bios .bio-quote::before,
+.full-bios .bio-quote::after {
+  position: absolute !important;
+  color: #2e2e2e !important;            /* grey glyphs */
+  font-weight: 700 !important;
+  font-size: 50px !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+  z-index: 12 !important;                /* above box background */
+}
+
+/* opening quote on the left inside the box */
+.full-bios .bio-quote::before {
+  content: "“" !important;
+  left: 12px !important;                 /* inside the box, left padding area */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* closing quote on the right inside the box */
+.full-bios .bio-quote::after {
+  content: "”" !important;
+  right: 12px !important;                /* inside the box, right padding area */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* On very small screens, make quote boxes fluid and stack naturally */
+@media (max-width: 900px) {
+  .full-bios .bio-quote {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    -webkit-line-clamp: none !important;
+    -webkit-box-orient: initial !important;
+    overflow: visible !important;
+    padding-left: var(--bio-quote-padding-x) !important;
+    padding-right: var(--bio-quote-padding-x) !important;
+    margin-top: 12px !important;
+    font-size: clamp(13px, 2.2vw, 15px) !important;
+  }
+  .full-bios .bio-quote::before,
+  .full-bios .bio-quote::after {
+    position: relative !important;
+    display: inline-block !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+    margin-right: 8px !important;
+  }
+}
+/* Outer box: keep absolute positioning & fixed height, but use flex centering */
+.full-bios .bio-quote {
+  position: absolute !important;
+  width: var(--bio-quote-box-w) !important;
+  height: calc( (2 * var(--bio-quote-line-height) * 1em) + (2 * var(--bio-quote-padding-y)) );
+  padding: var(--bio-quote-padding-y) var(--bio-quote-padding-x);
+  border-radius: 5px !important;
+  background: #E26900 !important;
+  color: #ffffff !important;
+  font-weight: 100 !important;
+  font-style: normal !important;
+  line-height: var(--bio-quote-line-height) !important;
+  font-size: clamp(var(--bio-quote-font-min), 1.2vw, var(--bio-quote-font-max)) !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important;
+  z-index: 10 !important;
+  padding-left: calc(var(--bio-quote-padding-x) + 28px) !important;
+  padding-right: calc(var(--bio-quote-padding-x) + 28px) !important;
+  word-break: break-word !important;
+
+  /* IMPORTANT: use flex so inner text can be vertically centered */
+  display: flex !important;
+  align-items: center !important;     /* vertical centering */
+  justify-content: center !important; /* horizontal centering */
+  text-align: center !important;
+}
+
+/* Inner text handles the two-line clamp */
+.full-bios .bio-quote__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  line-height: var(--bio-quote-line-height) !important;
+  /* allow natural wrapping and centering */
+  display: -webkit-box;
+  text-align: center;
+}
+
+/* Keep glyphs inside the box centered vertically */
+.full-bios .bio-quote::before,
+.full-bios .bio-quote::after {
+  position: absolute !important;
+  color: #2e2e2e !important;
+  font-weight: 700 !important;
+  font-size: 50px !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+  z-index: 12 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* left opening quote inside the box */
+.full-bios .bio-quote::before {
+  left: 12px !important;
+}
+
+/* right closing quote inside the box */
+.full-bios .bio-quote::after {
+  right: 12px !important;
+}
+/* quick override */
+/* Force the weight for the quote text (last-resort: !important) */
+/* ======= Paste at the VERY END of your CSS =======
+   Change ONLY the quote text (not the ::before/::after marks)
+================================================================ */
+
+/* 1) Target common child elements inside the quote (preferred) */
+.full-bios .bio-quote > *,
+.bio-quote > * {
+  font-size: 16px !important;   /* ← set desired size */
+  font-weight: 500 !important;  /* ← set desired weight (300/400/500/600/700...) */
+  line-height: 1.35 !important;
+  font-family: "Gantari", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+/* 2) Fallback if text is a direct text node (no child element).
+   We set the parent but then explicitly restore pseudo-elements below. */
+.full-bios .bio-quote,
+.bio-quote {
+  font-size: 15px !important;
+  font-weight: 50 !important;
+  line-height: 1.35 !important;
+  font-family: "Gantari", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+/* 3) Ensure the decorative quotation glyphs keep their original look */
+.full-bios .bio-quote::before,
+.full-bios .bio-quote::after,
+.bio-quote::before,
+.bio-quote::after {
+  /* keep whatever glyph styles you already have; re-declare to prevent inheritance */
+  color: #2e2e2e !important;
+  font-size: 50px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+/* =========================
+   Independent per-card quote nudges
+   (Does NOT touch --full-bio-cardN-nudge-x/y which move the whole card)
+   Paste at the VERY END of your CSS
+   Positive X = right, Negative X = left
+   Positive Y = down,  Negative Y = up
+========================= */
+
+/* Per-card quote variables — default values (edit these) */
+:root{
+  --full-bio-card1-quote-nudge-x: 30px;
+  --full-bio-card1-quote-nudge-y: 370px;
+  --full-bio-card1-glyph-nudge-x: 0px;
+  --full-bio-card1-glyph-nudge-y: 0px;
+
+  --full-bio-card2-quote-nudge-x: 0px;
+  --full-bio-card2-quote-nudge-y: 350px;
+  --full-bio-card2-glyph-nudge-x: 0px;
+  --full-bio-card2-glyph-nudge-y: 0px;
+
+  --full-bio-card3-quote-nudge-x: 30px;
+  --full-bio-card3-quote-nudge-y: 330px;
+  --full-bio-card3-glyph-nudge-x: 0px;
+  --full-bio-card3-glyph-nudge-y: 0px;s
+}
+
+/* Apply per-card quote-box translation — only moves the .bio-quote box itself */
+.full-bios .full-bio-card:nth-child(1) .bio-quote {
+  transform: translate(var(--full-bio-card1-quote-nudge-x), var(--full-bio-card1-quote-nudge-y)) !important;
+  will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(2) .bio-quote {
+  transform: translate(var(--full-bio-card2-quote-nudge-x), var(--full-bio-card2-quote-nudge-y)) !important;
+  will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(3) .bio-quote {
+  transform: translate(var(--full-bio-card3-quote-nudge-x), var(--full-bio-card3-quote-nudge-y)) !important;
+  will-change: transform;
+}
+
+/* Move decorative glyphs independently (keeps vertical centering translateY(-50%)) */
+.full-bios .full-bio-card:nth-child(1) .bio-quote::before,
+.full-bios .full-bio-card:nth-child(1) .bio-quote::after {
+  top: 50% !important;
+  transform: translateY(-50%) translate(var(--full-bio-card1-glyph-nudge-x), var(--full-bio-card1-glyph-nudge-y)) !important;
+  will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(2) .bio-quote::before,
+.full-bios .full-bio-card:nth-child(2) .bio-quote::after {
+  top: 50% !important;
+  transform: translateY(-50%) translate(var(--full-bio-card2-glyph-nudge-x), var(--full-bio-card2-glyph-nudge-y)) !important;
+  will-change: transform;
+}
+.full-bios .full-bio-card:nth-child(3) .bio-quote::before,
+.full-bios .full-bio-card:nth-child(3) .bio-quote::after {
+  top: 50% !important;
+  transform: translateY(-50%) translate(var(--full-bio-card3-glyph-nudge-x), var(--full-bio-card3-glyph-nudge-y)) !important;
+  will-change: transform;
+}
+
+/* Optional convenience: alternate selectors if you use .full-bio-card1/.full-bio-card2/.full-bio-card3 */
+.full-bio-card1 .bio-quote { transform: translate(var(--full-bio-card1-quote-nudge-x), var(--full-bio-card1-quote-nudge-y)) !important; }
+.full-bio-card2 .bio-quote { transform: translate(var(--full-bio-card2-quote-nudge-x), var(--full-bio-card2-quote-nudge-y)) !important; }
+.full-bio-card3 .bio-quote { transform: translate(var(--full-bio-card3-quote-nudge-x), var(--full-bio-card3-quote-nudge-y)) !important; }
+
+.full-bio-card1 .bio-quote::before, .full-bio-card1 .bio-quote::after { transform: translateY(-50%) translate(var(--full-bio-card1-glyph-nudge-x), var(--full-bio-card1-glyph-nudge-y)) !important; }
+.full-bio-card2 .bio-quote::before, .full-bio-card2 .bio-quote::after { transform: translateY(-50%) translate(var(--full-bio-card2-glyph-nudge-x), var(--full-bio-card2-glyph-nudge-y)) !important; }
+.full-bio-card3 .bio-quote::before, .full-bio-card3 .bio-quote::after { transform: translateY(-50%) translate(var(--full-bio-card3-glyph-nudge-x), var(--full-bio-card3-glyph-nudge-y)) !important; }
+
+/* ===== Usage =====
+   • To move only the quote box for card 1: set --full-bio-card1-quote-nudge-x/y.
+   • To move only the quotation marks for card 1: set --full-bio-card1-glyph-nudge-x/y.
+   • This does NOT touch your existing --full-bio-cardN-nudge-x/y values which move the whole card.
+   • Units: px, rem, %, vw, etc.
+   Example:
+     in :root or a specific rule:
+       --full-bio-card1-quote-nudge-x: 120px;
+       --full-bio-card1-quote-nudge-y: 300px;
+       --full-bio-card1-glyph-nudge-x: -8px;
+       --full-bio-card1-glyph-nudge-y: 2px;
+*/

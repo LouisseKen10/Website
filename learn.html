@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <title>OhSnap — Learn</title>
+    <link rel="stylesheet" href="learn.css" />
+    <script src="scroll.js" defer></script>
+</head>
+<body>
+    
+    <div class="header-wrapper">
+        <header class="site-header">
+            <a class="brand" href="home.html">
+                <img class="brand__img" src="images/logo2.png" alt="OhSnap logo">
+                <span class="brand__text">OhSnap</span>
+            </a>
+            <a class="logout-btn" href="index.html">LOGOUT</a>
+        </header>
+
+        <nav class="site-nav">
+            <a href="home.html" class="nav-link">HOME</a>
+            <a href="about.html" class="nav-link">ABOUT</a>
+            <a href="learn.html" class="nav-link is-active">LEARN</a>
+            <a href="gallery.html" class="nav-link">GALLERY</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
+        </nav>
+    </div>
+
+    <section class="bg-long">
+      <!-- Quote block (put inside .bg-long) -->
+        <div class="quote-wrap" role="note" aria-label="Inspirational quote">
+          <img class="quote-mark quote-left" src="images/quotsl.png" alt="opening quote mark">
+          <blockquote class="quote">
+            <p class="quote-text">
+              The beauty of learning lies not in how fast we master something, but in how deeply it changes the way we see the world.
+            </p>
+          </blockquote>
+          <img class="quote-mark quote-right" src="images/quots.png" alt="closing quote mark">
+        </div>
+        <!-- Learn intro block (placed after the quote) -->
+        <section class="learn-block" aria-labelledby="learn-title">
+          <div class="learn-inner">
+            <!-- icon: leave src empty or replace with your image later -->
+            <img class="learn-icon" src="images/learnhere.png" alt="" aria-hidden="true">
+
+            <p class="learn-subtitle">LET THE STORY BEGIN</p>
+
+            <h2 id="learn-title" class="learn-title">LEARN &amp; ENJOY</h2>
+
+            <div class="learn-copy">
+              <p>
+                Here you will learn that photography is more than emotion.
+                It is light, timing, and perspective coming together to tell a story.
+              </p>
+              <p>
+                Hone your skills not for perfection but for impact that leaves a lasting mark.
+              </p>
+            </div>
+          </div>
+        </section>
+                <!-- Photography foundations grid -->
+        <section class="foundations">
+          <h2 class="foundations-title">FOUNDATIONS OF PHOTOGRAPHY</h2>
+
+          <div class="foundations-grid">
+            <!-- Changed to an anchor so it links to the detailed Camera Basics section below -->
+            <a class="foundation-card" href="#camera-basics" aria-label="Go to Camera Basics">
+              <div class="foundation-img" style="background-image: url('images/photo1.png');"></div>
+              <div class="foundation-overlay"></div>
+              <div class="foundation-content">
+                <img class="foundation-icon" src="images/basics.png" alt="">
+                <p class="foundation-label">CAMERA BASICS</p>
+              </div>
+            </a>
+
+            <a class="foundation-card" href="#compos">
+              <div class="foundation-img" style="background-image: url('images/photo2.png');"></div>
+              <div class="foundation-overlay"></div>
+              <div class="foundation-content">
+                <img class="foundation-icon" src="images/compos.png" alt="">
+                <p class="foundation-label">COMPOSITION</p>
+              </div>
+            </a>
+
+            <a class="foundation-card" href="#angles">
+              <div class="foundation-img" style="background-image: url('images/photo3.jpg');"></div>
+              <div class="foundation-overlay"></div>
+              <div class="foundation-content">
+                <img class="foundation-icon" src="images/angles.png" alt="">
+                <p class="foundation-label">ANGLES</p>
+              </div>
+            </a>
+
+            <a class="foundation-card" href="#lighting">
+              <div class="foundation-img" style="background-image: url('images/photo4.png');"></div>
+              <div class="foundation-overlay"></div>
+              <div class="foundation-content">
+                <img class="foundation-icon" src="images/light.png" alt="">
+                <p class="foundation-label">LIGHTING</p>
+              </div>
+            </a>
+
+            <a class="foundation-card" href="#color">
+              <div class="foundation-img" style="background-image: url('images/photo5.png');"></div>
+              <div class="foundation-overlay"></div>
+              <div class="foundation-content">
+                <img class="foundation-icon" src="images/color.png" alt="">
+                <p class="foundation-label">COLOR</p>
+              </div>
+            </a>
+
+            <a class="foundation-card" href="#focus">
+              <div class="foundation-img" style="background-image: url('images/photo6.png');"></div>
+              <div class="foundation-overlay"></div>
+              <div class="foundation-content">
+                <img class="foundation-icon" src="images/focus.png" alt="">
+                <p class="foundation-label">FOCUS</p>
+              </div>
+            </div>
+          </a>
+        </section>
+        
+        <section class="foundations-alt" aria-label="Foundations of Photography">
+
+          <!-- Added id here so the grid tile above scrolls to this entry -->
+          <div id="camera-basics" class="foundation-entry">
+            <div class="foundation-media"><img class="foundation-icon2" src="images/basics.png" alt="" aria-hidden="true"></div>
+            <div class="foundation-body">
+              <div class="foundation-buttons"><button class="foundation-btn">SAMPLES</button><button class="foundation-btn">VIDEO LESSONS</button></div>
+              <h3 class="foundation-heading">CAMERA BASICS</h3>
+              <p class="foundation-desc">Camera basics are the foundation of photography. They focus on the exposure triangle: aperture, shutter speed, and ISO. Aperture controls how much light enters the lens and affects background blur, shutter speed controls motion by freezing or blurring action, and ISO adjusts the camera’s sensitivity to light. Understanding how these three work together allows photographers to capture clear, balanced, and creative images.</p>
+            </div>
+          </div>
+
+          <div class="foundation-divider" aria-hidden="true"></div>
+
+          <div id="compos" class="foundation-entry">
+            <div class="foundation-media"><img class="foundation-icon2" src="images/compos.png" alt="" aria-hidden="true"></div>
+            <div class="foundation-body">
+              <div class="foundation-buttons"><button class="foundation-btn">SAMPLES</button><button class="foundation-btn">VIDEO LESSONS</button></div>
+              <h3 class="foundation-heading">COMPOSITION</h3>
+              <p class="foundation-desc">Composition is the way elements are arranged in a photo to create balance, focus, and meaning. Using techniques like the rule of thirds, leading lines, symmetry, and framing helps guide the viewer’s eye to the subject. Good composition turns a simple shot into a powerful image that tells a story.</p>
+            </div>
+          </div>
+
+          <div class="foundation-divider" aria-hidden="true"></div>
+
+          <div id="angles" class="foundation-entry">
+            <div class="foundation-media"><img class="foundation-icon2" src="images/angles.png" alt="" aria-hidden="true"></div>
+            <div class="foundation-body">
+              <div class="foundation-buttons"><button class="foundation-btn">SAMPLES</button><button class="foundation-btn">VIDEO LESSONS</button></div>
+              <h3 class="foundation-heading">ANGLES</h3>
+              <p class="foundation-desc">Angles change how a subject is seen and felt in a photograph. Shooting from high, low, or unusual viewpoints can add depth, drama, or emphasis to the image. Exploring different angles helps create unique perspectives that make photos more engaging and memorable.</p>
+            </div>
+          </div>
+
+          <div class="foundation-divider" aria-hidden="true"></div>
+
+          <div id="lighting" class="foundation-entry">
+            <div class="foundation-media"><img class="foundation-icon2" src="images/light.png" alt="" aria-hidden="true"></div>
+            <div class="foundation-body">
+              <div class="foundation-buttons"><button class="foundation-btn">SAMPLES</button><button class="foundation-btn">VIDEO LESSONS</button></div>
+              <h3 class="foundation-heading">LIGHTING</h3>
+              <p class="foundation-desc">Lighting is one of the most important elements in photography because it shapes mood, depth, and clarity. Natural light creates soft and realistic effects, while artificial light offers control and creativity. Learning how to use and balance light helps bring out details and highlight the subject effectively.</p>
+            </div>
+          </div>
+
+          <div class="foundation-divider" aria-hidden="true"></div>
+
+          <div id="color" class="foundation-entry">
+            <div class="foundation-media"><img class="foundation-icon2" src="images/color.png" alt="" aria-hidden="true"></div>
+            <div class="foundation-body">
+              <div class="foundation-buttons"><button class="foundation-btn">SAMPLES</button><button class="foundation-btn">VIDEO LESSONS</button></div>
+              <h3 class="foundation-heading">COLOR</h3>
+              <p class="foundation-desc">Color adds mood, emotion, and meaning to a photograph. Warm colors like red and yellow create energy and excitement, while cool colors like blue and green bring calmness and peace. Understanding how to use and combine colors helps photographers create stronger visual impact and tell deeper stories.</p>
+            </div>
+          </div>
+
+          <div class="foundation-divider" aria-hidden="true"></div>
+
+          <div id="focus" class="foundation-entry">
+            <div class="foundation-media"><img class="foundation-icon2" src="images/focus.png" alt="" aria-hidden="true"></div>
+            <div class="foundation-body">
+              <div class="foundation-buttons"><button class="foundation-btn">SAMPLES</button><button class="foundation-btn">VIDEO LESSONS</button></div>
+              <h3 class="foundation-heading">FOCUS</h3>
+              <p class="foundation-desc">Focus directs the viewer’s attention to the most important part of a photograph. A sharp subject stands out clearly, while a blurred background or foreground adds depth and emphasis. Mastering focus ensures that images are clear, intentional, and powerful in storytelling.</p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- HERO (no controls, CSS-variable driven) -->
+        <section class="hero-section" aria-label="Featured live/video promo">
+          <div class="hero-inner">
+            <!-- LEFT: text column -->
+            <div class="hero-left">
+              <div class="live-pill">LIVE NOW!</div>
+
+              <!-- Title (positioned by CSS vars) -->
+              <h1 id="heroTitle" class="hero-title">BASICS OF PHOTOGRAPHY</h1>
+
+              <!-- Body (positioned by CSS vars) -->
+              <p id="heroBody" class="hero-body">
+                Join our live session on the basics of photography. Discover how to use your camera, understand key settings, and improve your shots. Since it’s live, you’ll also have the chance to ask questions and get real-time answers.
+              </p>
+
+            <div class="hero-ctas">
+              <a class="btn-primary" href="#" role="button">CLICK HERE TO JOIN</a>
+
+              <div class="watch-inline" aria-hidden="false">
+                <span class="watch-text">or watch the live via</span>
+
+                <!-- leave image src attribute blank for now (you'll paste your icons later) -->
+                <a class="social-tile" href="#" aria-label="Facebook live">
+                  <img src="images/fb.png" alt="Facebook" />
+                </a>
+
+                <a class="social-tile" href="#" aria-label="YouTube live">
+                  <img src="images/yt.png" alt="YouTube" />
+                </a>
+              </div>
+            </div>
+
+
+            <!-- MIDDLE: empty placeholder (kept intentionally blank) -->
+            <div class="hero-blank" aria-hidden="true"></div>
+
+            <!-- RIGHT: YouTube box (clickable link). Paste your youtube/embed URL into the href -->
+              <div class="video-bg">
+                <iframe
+                  src="https://www.youtube.com/embed/V7z7BAZdt2M?autoplay=1&mute=1&loop=1&playlist=V7z7BAZdt2M&controls=0&showinfo=0&modestbranding=1"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen
+                ></iframe>
+              </div>
+          </div>
+        </section>
+
+    </section>
+    
+    <section class="footer-band">
+      <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+          
+          <div class="footer-col footer-brand">
+          <div class="brandlockup">
+            <img class="footer-mark" src="images/logo.png" alt="OhSnap mark" />
+              <span class="footer-wordmark">OhSnap</span>
+          </div>
+              <p class="footer-tagline">
+                Photography is emotion<br>made visible
+              </p>
+        </div>
+
+
+          <div class="footer-col footer-links">
+            <h4 class="footer-h">QUICK LINKS</h4>
+            <ul class="footer-list">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#learn">Learn</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#contact">Contacts</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-explore">
+            <h4 class="footer-h">EXPLORE</h4>
+            <p class="footer-note">Search something in the website</p>
+            <form class="footer-search" action="#" method="get">
+              <input type="text" name="q" placeholder="keyword" aria-label="Search">
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <div class="footer-col footer-connect">
+            <h4 class="footer-h">CONNECT WITH US</h4>
+            <div class="footer-social">
+              <img class="soc" src="images/fb.png" alt="Facebook">
+              <img class="soc" src="images/yt.png" alt="YouTube">
+              <img class="soc" src="images/twit.png" alt="X">
+              <img class="soc" src="images/ig.png" alt="Instagram">
+              <img class="soc" src="images/tt.png" alt="TikTok">
+            </div>
+            <p class="footer-connect-note">Feel free to contact us if you have questions</p>
+            <a class="footer-more" href="#">More</a>
+          </div>
+
+        </div>
+
+        <hr class="footer-rule">
+        <p class="footer-copy">
+          © 2025 Oh Snap. All rights reserved. This website and its content are protected by copyright.
+          No part may be reproduced, distributed, or used in any manner without written permission from Oh Snap.
+        </p>
+      </footer>
+    </section>
+</body>
+
+</html>

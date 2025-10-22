@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OhSnap — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  
+  <!-- Transparent header at top (no box). Will tint on scroll via CSS only. -->
+<header class="site-header">
+  <a class="brand" href="home.html">
+    <img class="brand__img" src="images/logo2.png" alt="OhSnap logo">
+    <span class="brand__text">OhSnap</span>
+  </a>
+
+  <nav class="site-nav">
+    <a href="home.html" class="nav-link is-active">HOME</a>
+    <a href="about.html" class="nav-link">ABOUT</a>
+    <a href="learn.html" class="nav-link">LEARN</a>
+    <a href="gallery.html" class="nav-link">GALLERY</a>
+    <a href="contact.html" class="nav-link">CONTACT</a>
+  </nav>
+
+  <a class="logout-btn" href="index.html">LOGOUT</a>
+</header>
+
+
+  <!-- CSS-only sentinel used to detect scroll (no JS needed) -->
+  <div id="sentinel" class="scroll-sentinel" aria-hidden="true"></div>
+
+  <main id="home" class="page">
+    <!-- Your exported full-page artwork -->
+    <img class="page-bg" src="images/home.jpg" alt="OhSnap Home">
+    <!-- What is OhSnap? (overlayed on the dark band) -->
+    <section class="what-overlay" aria-labelledby="what-title">
+      <h2 id="what-title" class="what-title">What is OhSnap?</h2>
+      <p class="what-copy">
+        Oh Snap! is an engaging online photography school where beginners can learn at
+        their own pace through expert-led sessions, helpful resources, and guided practice.
+        Whether you use a phone or a professional camera, you’ll build the skills and
+        confidence to take great photos from the comfort of your home.
+      </p>
+    </section>
+    <!-- ===== Three feature cards ===== -->
+    <section class="features">
+      <article class="feature">
+        <div class="feature__icon" aria-hidden="true"></div>
+        <h3 class="feature__title">OUR<br>STORY</h3>
+        <p class="feature__text">
+          Get to know the people behind OhSnap. Learn about our history, mission,
+          and vision so you can understand why this photography school is a trusted
+          place to learn.
+        </p>
+        <button class="feature__cta" aria-label="Read Our Story">
+          <a href="about.html">
+            <img src="images/arrow.png" alt="Go to About Page">
+          </a>
+        </button>
+      </article>
+
+      <article class="feature">
+        <div class="feature__icon" aria-hidden="true"></div>
+        <h3 class="feature__title">LEARN<br>HERE</h3>
+        <p class="feature__text">
+          This is where your photography journey begins. Explore the essential basics, from understanding your camera to mastering light, composition, and storytelling.
+        </p>
+        <button class="feature__cta" aria-label="Read Our Story">
+          <a href="learn.html">
+            <img src="images/arrow.png" alt="Go to About Page">
+          </a>
+
+        </button>
+      </article>
+
+      <article class="feature">
+        <div class="feature__icon" aria-hidden="true"></div>
+        <h3 class="feature__title">BOLD<br>CAPTURES</h3>
+        <p class="feature__text">
+          Explore a collection of unique photos, each capturing its own emotion and story through someone else's lens. You can also share your own shots and be part of the gallery!
+        </p>
+        <button class="feature__cta" aria-label="Read Our Story">
+          <a href="gallery.html">
+            <img src="images/arrow.png" alt="Go to About Page">
+          </a>
+        </button>
+
+      </article>
+      </section>
+
+
+      <!-- ===== Upcoming Sessions (ref layout) ===== -->
+    <section class="sessions-lite" aria-labelledby="sessions-lite-title">
+      <div class="sessions-lite__rule"></div>
+      <h2 id="sessions-lite-title" class="sessions-lite__title">UPCOMING SESSIONS</h2>
+
+      <div class="sessions-lite__grid">
+        <!-- Col 1 -->
+        <div class="scol">
+          <div class="scol__date">
+            <span class="scol__day">18/</span><span class="scol__month">10</span>
+          </div>
+          <p class="scol__copy">
+            Live online sessions that focus on the art of photographic composition. Discover key techniques and creative ways to
+            frame your shots while improving your visual storytelling skills.
+          </p>
+        </div>
+
+        <!-- Col 2 -->
+        <div class="scol">
+          <div class="scol__date">
+            <span class="scol__day">22/</span><span class="scol__month">10</span>
+          </div>
+          <p class="scol__copy">
+            Learn how lighting affects mood, depth, and clarity in photography. Understand natural and artificial light sources
+            and how to use them to bring your photos to life.
+          </p>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="scol">
+          <div class="scol__date">
+            <span class="scol__day">22/</span><span class="scol__month">11</span>
+          </div>
+          <p class="scol__copy">
+            Understand the basics of ISO, aperture, and shutter speed. Learn how to control light and capture clean, well-exposed photos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- “Welcome to OhSnap!” callout, positioned over the artwork -->
+    <section class="hero-callout">
+      <h1 class="hero-title">
+        <span class="hero-title__lead">Welcome to</span>
+        <span class="hero-title__color">OhSnap!</span>
+      </h1>
+      <p class="hero-sub">
+        Where passion meets guidance and dreams develop one shot at a time as
+        you build real skills, and grow through every photo you take.
+      </p>
+    </section>
+    <!-- Zero-size anchors so nav jumps work without extending page height -->
+    <span id="about"   class="anchor"></span>
+    <span id="learn"   class="anchor"></span>
+    <span id="gallery" class="anchor"></span>
+    <span id="contact" class="anchor"></span>
+  </main>
+<!-- Brown footer band (the strip in your design) -->
+<!-- Brown footer band (the strip in your design) -->
+<!-- Brown footer band -->
+<!-- Brown footer band -->
+<!-- Brown footer band (same height/spacing as the basis) -->
+<section class="footer-band">
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      
+      <!-- Brand / logo block -->
+    <div class="footer-col footer-brand">
+      <div class="brandlockup">
+        <!-- circular mark on the left -->
+        <img class="footer-mark" src="images/logo.png" alt="OhSnap mark" />
+          <span class="footer-wordmark">OhSnap</span>
+      </div>
+          <p class="footer-tagline">
+            Photography is emotion<br>made visible
+          </p>
+    </div>
+
+
+      <!-- Quick links -->
+      <div class="footer-col footer-links">
+        <h4 class="footer-h">QUICK LINKS</h4>
+        <ul class="footer-list">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contacts</a></li>
+        </ul>
+      </div>
+
+      <!-- Explore / Search -->
+      <div class="footer-col footer-explore">
+        <h4 class="footer-h">EXPLORE</h4>
+        <p class="footer-note">Search something in the website</p>
+        <form class="footer-search" action="#" method="get">
+          <input type="text" name="q" placeholder="keyword" aria-label="Search">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <!-- Connect -->
+      <div class="footer-col footer-connect">
+        <h4 class="footer-h">CONNECT WITH US</h4>
+        <div class="footer-social">
+          <!-- leave src blank; you’ll paste your own icons -->
+          <img class="soc" src="images/fb.png" alt="Facebook">
+          <img class="soc" src="images/yt.png" alt="YouTube">
+          <img class="soc" src="images/twit.png" alt="X">
+          <img class="soc" src="images/ig.png" alt="Instagram">
+          <img class="soc" src="images/tt.png" alt="TikTok">
+        </div>
+        <p class="footer-connect-note">Feel free to contact us if you have questions</p>
+        <a class="footer-more" href="#">More</a>
+      </div>
+
+    </div>
+
+    <hr class="footer-rule">
+    <p class="footer-copy">
+      © 2025 Oh Snap. All rights reserved. This website and its content are protected by copyright.
+      No part may be reproduced, distributed, or used in any manner without written permission from Oh Snap.
+    </p>
+  </footer>
+</section>
+
+
+
+
+
+</body>
+</html>
